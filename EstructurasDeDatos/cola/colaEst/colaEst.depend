@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1694545569 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\colaest.c
+	"colaEst.h"
+
+1694545569 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\colaest.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1694546755 source:d:\algoritmosyestructuras\estructurasdedatos\colaest\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../bibliotecaEstructuras/colaEst.h"
+

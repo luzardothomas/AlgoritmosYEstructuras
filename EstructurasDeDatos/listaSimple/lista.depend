@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1696129592 source:d:\algoritmosyestructuras\estructurasdedatos\listasimple\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../bibliotecaEstructuras/lista.h"
+
+1696129673 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\lista.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1696129630 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\lista.c
+	"lista.h"
+

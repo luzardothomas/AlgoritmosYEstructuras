@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1692821061 source:d:\algoritmosyestructuras\pilaest\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

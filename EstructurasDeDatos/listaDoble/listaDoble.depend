@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1696971363 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\listadoble.c
+	"listaDoble.h"
+
+1696971036 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\listadoble.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1696964354 source:d:\algoritmosyestructuras\estructurasdedatos\listadoble\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../bibliotecaEstructuras/listaDoble.h"
+

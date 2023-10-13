@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1696110211 source:d:\algoritmosyestructuras\estructurasdedatos\listacircular\pilacircular\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../../bibliotecaEstructuras/pilaCircular.h"
+
+1696109929 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\pilacircular.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1696128543 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\pilacircular.c
+	"pilaCircular.h"
+

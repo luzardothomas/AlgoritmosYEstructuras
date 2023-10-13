@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1692905469 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\piladin.c
+	"pilaDin.h"
+
+1693240988 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\piladin.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1693242336 source:d:\algoritmosyestructuras\ejerciciosdepila\sumarnumerosgrandes\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../../EstructurasDeDatos/bibliotecaEstructuras/pilaDin.h"
+	"implementacion.h"
+
+1693242725 source:d:\algoritmosyestructuras\ejerciciosdepila\sumarnumerosgrandes\implementacion.c
+	"implementacion.h"
+	<stdio.h>
+
+1693242281 d:\algoritmosyestructuras\ejerciciosdepila\sumarnumerosgrandes\implementacion.h
+	"../../EstructurasDeDatos/bibliotecaEstructuras/pilaDin.h"
+

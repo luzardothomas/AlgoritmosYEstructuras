@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1692889654 source:d:\algoritmosyestructuras\coladin\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1693145838 source:d:\algoritmosyestructuras\estructurasdedatos\coladin\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../bibliotecaEstructuras/colaDin.h"
+
+1692902234 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\coladin.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1693146363 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\coladin.c
+	"colaDin.h"
+

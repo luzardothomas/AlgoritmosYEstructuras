@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1695064548 source:/home/thomas/Desktop/AlgoritmosYEstructuras/ejerciciosDeCola/colaDelBanco/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+
+1695152630 source:/home/thomas/Desktop/AlgoritmosYEstructuras-20230919T184832Z-001/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/colaDin.c
+	"colaDin.h"
+
+1695152633 /home/thomas/Desktop/AlgoritmosYEstructuras-20230919T184832Z-001/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/colaDin.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1695156768 source:/home/thomas/Desktop/AlgoritmosYEstructuras-20230919T184832Z-001/AlgoritmosYEstructuras/EjerciciosDeCola/colaDelBanco/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"../../EstructurasDeDatos/bibliotecaEstructuras/colaDin.h"
+	"../../EstructurasDeDatos/bibliotecaEstructuras/colaEst.h"
+
+1695156702 /home/thomas/Desktop/AlgoritmosYEstructuras-20230919T184832Z-001/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/colaEst.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1695156758 source:/home/thomas/Desktop/AlgoritmosYEstructuras-20230919T184832Z-001/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/colaEst.c
+	"colaEst.h"
+

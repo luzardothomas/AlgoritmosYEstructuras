@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1692905469 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\piladin.c
+	"pilaDin.h"
+
+1693240988 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\piladin.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1693240558 source:d:\algoritmosyestructuras\ejerciciosdepila\ordenarcondospilas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../../EstructurasDeDatos/bibliotecaEstructuras/pilaDin.h"
+
+1693240558 source:d:\algoritmosyestructuras\ejerciciosdepila\ordenarcondospilas\implementacion.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"implementacion.h"
+
+1693240601 d:\algoritmosyestructuras\ejerciciosdepila\ordenarcondospilas\implementacion.h
+	"../../EstructurasDeDatos/bibliotecaEstructuras/pilaDin.h"
+

@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1693961208 source:c:\users\laboratorios.unlmlab\desktop\clase04\funcionesclase04.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funcionesclase04.h"
+
+1693961194 c:\users\laboratorios.unlmlab\desktop\clase04\funcionesclase04.h
+
+1693962456 source:c:\users\laboratorios.unlmlab\desktop\clase04\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funcionesclase04.h"
+
+1694537638 source:d:\algoritmosyestructuras\clase04\clase04\funcionesclase04.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funcionesclase04.h"
+
+1694537638 d:\algoritmosyestructuras\clase04\clase04\funcionesclase04.h
+
+1694544522 source:d:\algoritmosyestructuras\clase04\clase04\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funcionesclase04.h"
+

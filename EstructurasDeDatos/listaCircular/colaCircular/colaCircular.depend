@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1696129223 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\colacircular.c
+	"colaCircular.h"
+
+1696129223 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\colacircular.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1696129223 source:d:\algoritmosyestructuras\estructurasdedatos\listacircular\colacircular\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../../bibliotecaEstructuras/colaCircular.h"
+
