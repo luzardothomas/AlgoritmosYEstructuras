@@ -45,27 +45,89 @@ int acumularStock(void* a, const void* b){
 }
 
 void test01(){
+    int datos[] = {3,1,99,150,2,0,8,5,999};
+  int i;
+  tLista lista;
+  crearLista(&lista);
+
+  for(i = 0 ; i < sizeof(datos)/sizeof(datos[0]) ; i++)
+    ponerAlComienzo(&lista,&datos[i],sizeof(datos[0]));
+
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
+  mostrarDeIzquierdaADerecha(&lista,mostrarEnteros);
+  printf("\n");
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
+  mostrarDeDerechaAIzquierda(&lista,mostrarEnteros);
+  printf("\n");
+  ordenarLista(&lista,compararEnteros);
+  printf("\n");
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
+  mostrarDeIzquierdaADerecha(&lista,mostrarEnteros);
+  printf("\n");
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
+  mostrarDeDerechaAIzquierda(&lista,mostrarEnteros);
+  printf("\n");
+  printf("\n");
+}
+
+void test02(){
   int datos[] = {3,1,99,150,2,0,8,5,999};
   int i;
   tLista lista;
   crearLista(&lista);
-  /*
+
   for(i = 0 ; i < sizeof(datos)/sizeof(datos[0]) ; i++)
-    ponerAlComienzo(&lista,&datos[i],sizeof(datos[0]));
-  */
-  for(i = 0 ; i < sizeof(datos)/sizeof(datos[0]) ; i++)
-    ponerEnOrden(&lista,&datos[i],sizeof(datos[0]),compararEnteros);
-  //ordenarLista(&lista,compararEnteros);
+    ponerAlFinal(&lista,&datos[i],sizeof(datos[0]));
+
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
   mostrarDeIzquierdaADerecha(&lista,mostrarEnteros);
 
-  /// ===================================================
-  puts("\n===============================================");
+  puts("\n============================================\n");
 
-  //ordenarLista(&lista,compararEnteros);
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
   mostrarDeDerechaAIzquierda(&lista,mostrarEnteros);
+  printf("\n");
+  ordenarLista(&lista,compararEnteros);
+
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
+  mostrarDeIzquierdaADerecha(&lista,mostrarEnteros);
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
+  mostrarDeDerechaAIzquierda(&lista,mostrarEnteros);
+  printf("\n");
+  printf("\n");
 }
 
-void test02(){
+void test03(){
+  int datos[] = {3,1,99,150,2,0,8,5,999};
+  int i;
+  tLista lista;
+  crearLista(&lista);
+
+  for(i = 0 ; i < sizeof(datos)/sizeof(datos[0]) ; i++)
+    ponerEnOrden(&lista,&datos[i],sizeof(datos[0]),compararEnteros);
+
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
+  mostrarDeIzquierdaADerecha(&lista,mostrarEnteros);
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
+  mostrarDeDerechaAIzquierda(&lista,mostrarEnteros);
+  printf("\n");
+  ordenarLista(&lista,compararEnteros);
+
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
+  mostrarDeIzquierdaADerecha(&lista,mostrarEnteros);
+  printf("\n");
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
+  mostrarDeDerechaAIzquierda(&lista,mostrarEnteros);
+  printf("\n");
+  printf("\n");
+}
+
+void test04(){
   tProducto datos[] = {
                         {7,80},
                         {7,1},
@@ -78,7 +140,7 @@ void test02(){
                         {7,80},
                       };
   int i;
-  int stock = 49;
+  int stock = 79;
   tProducto cantStock = {0,0};
   int productos;
   tLista lista;
@@ -87,41 +149,43 @@ void test02(){
   for(i = 0 ; i < sizeof(datos)/sizeof(datos[0]) ; i++)
     ponerAlComienzo(&lista,&datos[i],sizeof(datos[0]));
 
-  printf("Esta la lista vacia %d\n",listaVacia(&lista));
+  printf("\nEsta la lista vacia %d\n",listaVacia(&lista));
   vaciarLista(&lista);
-  printf("Esta la lista vacia %d\n",listaVacia(&lista));
+  printf("\nEsta la lista vacia %d\n",listaVacia(&lista));
 
   for(i = 0 ; i < sizeof(datos)/sizeof(datos[0]) ; i++)
     ponerAlComienzo(&lista,&datos[i],sizeof(datos[0]));
 
-  printf("Esta la lista vacia %d\n",listaVacia(&lista));
-  /*
+  printf("\nEsta la lista vacia %d\n",listaVacia(&lista));
+
   ordenarLista(&lista,compararCodProd);
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
   mostrarDeIzquierdaADerecha(&lista,mostrarProductos);
-  puts("**************************************************************************************************");
-  */
 
+  puts("\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n");
+  productos = reduce(&lista,&cantStock,acumularStock);
+  printf("\nEl promedio de stock de los %d productos es de %.2f\n",productos,cantStock.stock/(float)productos);
+  puts("------------------------------------------");
+  puts("\nProductos filtrados mayores de 100 unidades por stock");
 
-  ///puts("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-  ///productos = reduce(&lista,&cantStock,acumularStock);
-  ///printf("El promedio de stock de los %d productos es de %.2f\n",productos,cantStock.stock/(float)productos);
-  ///puts("--------------------------------------------------------------------------------------------------");
-  ///puts("Productos filtrados mayores de 100 unidades por stock");
-  /*
-  printf("Los nodos eliminados tras filtrarse han sido %d\n",filter(&lista,&stock,compararStock));
+  printf("\nLos nodos eliminados tras filtrarse han sido %d\n",filter(&lista,&stock,compararStock));
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
   mostrarDeIzquierdaADerecha(&lista,mostrarProductos);
-  puts("==================================================================================================");
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
   mostrarDeDerechaAIzquierda(&lista,mostrarProductos);
 
-  */
-  puts("==================================================================================================");
+
+  puts("\n============================================\n");
   agrupar(&lista,compararCodProd,acumularStock);
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
   mostrarDeIzquierdaADerecha(&lista,mostrarProductos);
-  puts("==================================================================================================");
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
   mostrarDeDerechaAIzquierda(&lista,mostrarProductos);
 }
 
-void test03(){
+void test05(){
   tProducto datos[] = {
                         {6,-2},
                         {8,5},
@@ -131,7 +195,7 @@ void test03(){
                         {3,150},
                       };
   int i;
-  int stock = 3;
+  int stock = 153;
   tLista lista;
   crearLista(&lista);
 
@@ -139,21 +203,41 @@ void test03(){
     ponerAlComienzo(&lista,&datos[i],sizeof(datos[0]));
 
   agrupar(&lista,compararCodProd,acumularStock);
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
   mostrarDeIzquierdaADerecha(&lista,mostrarProductos);
-  puts("==================================================================================================");
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
   mostrarDeDerechaAIzquierda(&lista,mostrarProductos);
+
   printf("Los nodos eliminados han sido %d con el dato %d\n",eliminarPorClave(&lista,&stock,compararStock),stock);
+
+  puts("\nMOSTRAR DE IZQUIERDA A DERECHA\n");
   mostrarDeIzquierdaADerecha(&lista,mostrarProductos);
-  puts("==================================================================================================");
+  puts("\n============================================\n");
+  puts("\nMOSTRAR DE DERECHA A IZQUIERDA\n");
   mostrarDeDerechaAIzquierda(&lista,mostrarProductos);
 }
 
 int main(){
-  puts("==================================== TEST 1 ====================================");
+  puts("========= TEST 1 =========");
+  puts("####################################################");
+  puts("####################################################");
   test01();
-  //printf("\n");
-  //puts("==================================== TEST 2 ====================================");  //test02();
-  //puts("==================================== TEST 3 ====================================");
-  //test03();
+  puts("========= TEST 2 =========");
+  puts("####################################################");
+  puts("####################################################");
+  test02();
+  puts("========= TEST 3 =========");
+  puts("####################################################");
+  puts("####################################################");
+  test03();
+  puts("========= TEST 4 =========");
+  puts("####################################################");
+  puts("####################################################");
+  test04();
+  puts("========= TEST 5 =========");
+  puts("####################################################");
+  puts("####################################################");
+  test05();
   return 0;
 }

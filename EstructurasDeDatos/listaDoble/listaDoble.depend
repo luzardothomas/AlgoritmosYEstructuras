@@ -2,12 +2,32 @@
 1696971363 source:d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\listadoble.c
 	"listaDoble.h"
 
+1696971363 e.h"
+
 1696971036 d:\algoritmosyestructuras\estructurasdedatos\bibliotecaestructuras\listadoble.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
+1696971036 
+
 1696964354 source:d:\algoritmosyestructuras\estructurasdedatos\listadoble\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../bibliotecaEstructuras/listaDoble.h"
+
+1696964354 tecaEstructuras/listaDoble.h"
+
+1697421423 source:/home/thomas/Desktop/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/listaDoble.c
+	"listaDoble.h"
+
+1697419866 /home/thomas/Desktop/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/listaDoble.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1697422506 source:/home/thomas/Desktop/AlgoritmosYEstructuras/EstructurasDeDatos/listaDoble/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
