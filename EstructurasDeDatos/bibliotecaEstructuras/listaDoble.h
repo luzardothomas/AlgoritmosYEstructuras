@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 #define minimo(x,y) ((x) < (y) ? (x) : (y))
+
+#define OK 1
+#define DUPLICADO 2
+
 typedef struct sNodo{
   void* dato;
   size_t tam;
@@ -18,9 +22,9 @@ int listaVacia(const tLista* pl);
 int listaLlena(const tLista* pl, size_t tam);
 int ponerAlComienzo(tLista* pl, const void* dato, size_t tam);
 int ponerAlFinal(tLista* pl, const void* dato, size_t tam);
-int ponerEnOrden(tLista* pl, const void* dato, size_t tam, int (*cmp)(const void*,const void*));
 int mostrarDeDerechaAIzquierda(tLista* pl, void(*mostrar)(const void*));
 int mostrarDeIzquierdaADerecha(tLista* pl, void(*mostrar)(const void*));
+int ponerEnOrden(tLista* pl, const void* dato, size_t tam, int (*cmp)(const void*,const void*));
 tLista* buscarMenor(tLista* pl,int (*cmp)(const void*,const void*));
 void ordenarLista(tLista* pl,int (*cmp)(const void*,const void*));
 tLista* buscarOcurrencia(tLista* pl, int (*cmp)(const void*,const void*));
