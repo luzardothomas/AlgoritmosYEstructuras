@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1697577415 source:d:\probar\algoritmosyestructuras\indicelistasimple\indice\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
