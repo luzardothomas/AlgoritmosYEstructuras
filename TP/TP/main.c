@@ -8,7 +8,6 @@ typedef struct{
            anio;
 }tFecha;
 
-
 typedef struct{
   long int nro;
   char nya[61];
@@ -21,8 +20,6 @@ typedef struct{
   char estado;
   tFecha baja;
 }tSocio;
-
-
 
 int validarLoteDeDatosDelClub(tSocio* socio){
 
@@ -42,7 +39,6 @@ int validarLoteDeDatosDelClub(tSocio* socio){
        (strcmp(socio->categoria,"HONORARIO") == 0) ||
        (strcmp(socio->categoria,"JUBILADO") == 0)))
     return 0;
-
 
   if(!(socio->estado == 'A' || socio->estado == 'I'))
     return 0;
@@ -72,8 +68,7 @@ int crearLoteDePrueba(){
 
   if(pf == NULL)
     return 0;
-
-
+  
   for(i = 0 ; i < sizeof(socios)/sizeof(socios[0]) ; i++){
     if(validarLoteDeDatosDelClub(&socios[i]) == 1){
       fprintf(pf,"%ld|%s|%ld|%d/%d/%d|%c|%d/%d/%d|%s|%d/%d/%d|%c|%d/%d/%d\n",socios[i].nro,
@@ -102,19 +97,24 @@ int crearLoteDePrueba(){
       fprintf(pError,"NUM_SOCIO:%ld|DNI:%ld\n",socios[i].nro,socios[i].dni);
     }
   }
+  
   fclose(pError);
   fclose(pf);
+  
   return 1;
 }
 
 int abrirArchivo(FILE** pf, const char* ruta, const char* modo){
+  
   *pf = fopen(ruta,modo);
   if(*pf == NULL)
     return 0;
+  
   return 1;
 }
 
 int leerSocios(FILE** pf,tSocio* socios){
+  
   return fscanf(*pf,"%ld|%[^|]|%ld|%d/%d/%d|%c|%d/%d/%d|%[^|]|%d/%d/%d|%c|%d/%d/%d\n",&socios->nro,
                                                                                       socios->nya,
                                                                                       &socios->dni,
@@ -134,6 +134,7 @@ int leerSocios(FILE** pf,tSocio* socios){
                                                                                       &socios->baja.mes,
                                                                                       &socios->baja.anio
                                                                                       );
+  
 }
 
 void mostrarSocios(const tSocio* socios, FILE* pf){
@@ -159,10 +160,13 @@ void mostrarSocios(const tSocio* socios, FILE* pf){
 }
 
 void grabarSocios(FILE** pf, tSocio* socios){
+  
   fwrite(socios,sizeof(tSocio),1,*pf);
+  
 }
 
 int main(){
+  
     FILE *pf;
     FILE *bin;
     tSocio socios;
