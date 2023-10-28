@@ -1,0 +1,64 @@
+# depslib dependency file v1.0
+1698431197 source:c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TP.h"
+
+1698431148 
+
+1698431273 c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\tp.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lista/lista.h"
+	"indice/indice.h"
+
+1698431273 dice.h"
+
+1698429183 source:c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\tp.c
+	"TP.h"
+
+1698430795 c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\lista\lista.h
+	<stdlib.h>
+
+1698431148 source:c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\lista\lista.c
+	"lista.h"
+	<string.h>
+	<stdio.h>
+
+1698431715 c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\indice\indice.h
+	<stdlib.h>
+
+1698431645 source:c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\indice\indice.c
+	"indice.h"
+
+1698450545 source:/home/thomas/Desktop/TP/TP-INTEGRADOR/indice/indice.c
+	"indice.h"
+
+1698432408 /home/thomas/Desktop/TP/TP-INTEGRADOR/indice/indice.h
+	<stdlib.h>
+
+1698431148 source:/home/thomas/Desktop/TP/TP-INTEGRADOR/lista/lista.c
+	"lista.h"
+	<string.h>
+	<stdio.h>
+
+1698430795 /home/thomas/Desktop/TP/TP-INTEGRADOR/lista/lista.h
+	<stdlib.h>
+
+1698434297 source:/home/thomas/Desktop/TP/TP-INTEGRADOR/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TP.h"
+
+1698451350 /home/thomas/Desktop/TP/TP-INTEGRADOR/TP.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"indice/indice.h"
+
+1698450335 source:/home/thomas/Desktop/TP/TP-INTEGRADOR/TP.c
+	"TP.h"
+
