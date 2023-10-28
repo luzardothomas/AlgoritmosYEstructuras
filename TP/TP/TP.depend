@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1698375515 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP/main.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
