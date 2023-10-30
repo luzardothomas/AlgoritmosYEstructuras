@@ -212,8 +212,13 @@ char menu(){
   mostrarMenu();
   fflush(stdin);
   scanf("%c",&op);
-  op = miToupper(op);
-  op -= 65;
+
+  if(ES_LETRA(op)){
+      op = A_MAYUS(op);
+      op -= 65;
+  }
+  else
+    op = 3;
 
   ///S = 0
 
@@ -231,7 +236,13 @@ char menu(){
     mostrarMenu();
     fflush(stdin);
     scanf("%c",&op);
-    op = miToupper(op);
+
+    if(ES_LETRA(op)){
+      op = A_MAYUS(op);
+      op -= 65;
+    }
+    else
+      op = 3;
 
   }
 
