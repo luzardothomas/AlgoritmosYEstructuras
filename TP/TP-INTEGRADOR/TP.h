@@ -11,7 +11,8 @@
 #define ERROR_ARCH 0
 #define ERROR_REGIS 0
 
-#define miToupper(c)    (c)>=('a') && (c)<=('z') ? (c)- (' ') : (c)
+#define ES_LETRA(x) (((x) >= 'a' && (x) <= 'z') || ((x) >= 'A' && (x) <= 'Z'))
+#define A_MAYUS(c)    (c)>=('a') && (c)<=('z') ? (c)- (' ') : (c)
 #define menor(a,b)      (a)<(b)? (a):(b)
 #define mayor(a,b)      (a)>(b)? (a):(b)
 
