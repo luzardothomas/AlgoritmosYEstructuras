@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "indice/indice.h"
+#include "lista/lista.h"
 
 #define TODO_OK 1
 #define ERROR_ARCH 0
@@ -36,6 +37,8 @@ typedef struct{
   tFecha baja;
 
 }tSocio;
+
+//typedef (*fOpcion)(tSocio*,FILE*);
 
 int crearLoteDePrueba();
 int pasarArchTxtABin(const char* rutaTxt,const char* rutaBin);

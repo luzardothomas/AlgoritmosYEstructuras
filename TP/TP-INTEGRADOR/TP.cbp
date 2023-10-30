@@ -39,6 +39,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="indice/indice.h" />
+		<Unit filename="lista/lista.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lista/lista.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

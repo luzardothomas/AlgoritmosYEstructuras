@@ -3,68 +3,86 @@
 #include <string.h>
 #include "TP.h"
 
-int main(){
+typedef struct{
+  long int numSocio;
+  unsigned numReg;
+}tRegistro;
 
-  int ret;
+int compararNumeroDeSocio(const void* a, const void* b){
+  tSocio* pa = (tSocio*)a;
+  tSocio* pb = (tSocio*)b;
+  return pa->nro-pb->nro;
+}
+
+void mostrarNumReg(const void* a){
+  unsigned *pa = (unsigned *)a;
+  printf("%ld\n",*pa);
+}
+
+int main(){
   char op;
+  char ruta[150];
+  FILE *bin;
+  tIndice indice;
+  tLista listaSocios;
+  tSocio socio;
+  tRegistro registro;
+  unsigned i = 0;
+  int iteraciones;
 
   //crearLoteDePrueba();
 
-  ret = pasarArchTxtABin("socios.txt","socios.data");
+  ///printf("Ingrese la ruta:");
+  ///scanf("%s",ruta);
 
-  if(ret!=TODO_OK)
-    return ret;
+  ///socios.txt es la ruta correcta
 
-  //crearIndice();
+  if(pasarArchTxtABin("socios.txt","socios.data") != TODO_OK)
+    return 0;
 
-  op = menu();
+  abrirArchivo(&bin,"socios.data","rb");
 
-  while(op!='S'){
+  crearIndice(&indice);
 
-    switch(op){
+  fread(&socio,sizeof(tSocio),1,bin);
 
-        case('A'):{
+  iteraciones = ftell(&bin);
 
-          break;
-
-        }
-        case('M'):{
-
-          break;
-
-        }
-        case('B'):{
-
-          break;
-
-        }
-        case('L'):{
-
-          break;
-
-        }
-        case('V'):{
-
-          break;
-
-        }
-        case('P'):{
-
-          break;
-
-        }
-        case('S'):{
-
-          printf("SALIDA CON EXITO\n");
-          break;
-
-        }
-      }
-
-      if(op != 'S')
-        op = menu();
+  while(!feof(bin)){
+    ponerEnOrden(&listaSocios,&socio,sizeof(tSocio),compararNumeroDeSocio,NULL);
+    fread(&socio,sizeof(tSocio),1,bin);
   }
 
+  while(sacarPrimeroLista(&listaSocios,&socio,sizeof(tSocio))){
+    insertarIndice(&indice,&socio,i++);
+  }
+  mostrarIndice(&indice,mostrarNumReg);
+
+  ///En lugar de un switch case se podría
+  ///usar una variable que contenga funciones
+  ///de acciones a concretar.
+
+  ///fAccion[] = {
+///                Alta, A
+///                Baja, B
+///                ListarBajas, L
+///                Modificar, M
+///                PagoRetrasado, P
+///                VerSocios, V
+///              };
+
+  ///while(op){
+  /// Utilizamos el fAccion[op-1]
+  /// op = menu();
+  ///}
+
+  fclose(bin);
   return 0;
 
 }
+
+
+
+
+
+

@@ -1,5 +1,17 @@
 #include "TP.h"
 
+#ifdef _WIN32
+  #include<windows.h>
+#endif
+
+void limpiarPantalla(){
+  #ifdef _WIN32
+    system("cls");
+  #else
+    system("clear");
+  #endif
+}
+
 int crearLoteDePrueba(){
 
   tSocio socios[]  = {
@@ -184,26 +196,49 @@ void grabarSocios(FILE** pf, tSocio* socios){
 char menu(){
 
   char op;
+  char abc[] = {
+                 1 , 2, 'C',
+                'D','E','F',
+                'G','H','I',
+                'J','K', 3 ,
+                 4, 'N','O',
+                 5,'Q','R' ,
+                 0,'T','U' ,
+                 6,'W','X' ,
+                   'Y','Z'
+               };
 
-  system("pause");
-  system("cls");
-
+  limpiarPantalla();
   mostrarMenu();
   fflush(stdin);
   scanf("%c",&op);
   op = miToupper(op);
+  op -= 65;
 
-  while(op!='A' && op!='M' && op!='B' && op!='L' && op!='V' && op!='P' && op!='S'){
+  ///S = 0
 
-    system("cls");
+  ///A = 1
+  ///B = 2
+  ///L = 3
+  ///M = 4
+  ///P = 5
+  ///V = 6
+
+  while(abc[op] > 7){
+
+    limpiarPantalla();
     printf("OPCION NO VALIDA\n\n");
     mostrarMenu();
     fflush(stdin);
     scanf("%c",&op);
     op = miToupper(op);
+
   }
 
+  op = abc[op];
+
   return op;
+
 }
 
 void mostrarMenu(){
