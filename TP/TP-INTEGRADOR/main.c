@@ -3,10 +3,7 @@
 #include <string.h>
 #include "TP.h"
 
-typedef struct{
-  long int numSocio;
-  unsigned numReg;
-}tRegistro;
+
 
 int compararNumeroDeSocio(const void* a, const void* b){
   tSocio* pa = (tSocio*)a;
@@ -14,23 +11,36 @@ int compararNumeroDeSocio(const void* a, const void* b){
   return pa->nro-pb->nro;
 }
 
-void mostrarNumReg(const void* a){
-  unsigned *pa = (unsigned *)a;
-  printf("%ld\n",*pa);
+void mostrarNroReg(const void* a, FILE* pf){
+  indice *pa = (indice *)a;
+  long int* clave = (long int*)pa->clave;
+  fprintf(pf,"Numero de registro: %d Numero de socio: %ld\n",pa->nroReg,*clave);
 }
 
+tLista siguienteDeLista(tLista* pl){
+  if(*pl == NULL)
+    return 0;
+  if((*pl)->sig){
+    pl = &(*pl)->sig;
+    return *pl;
+  }
+  return 0;
+}
+int acumular(){
+  return 1;
+}
 int main(){
-  char op;
-  char ruta[150];
+  ///char op;
+  ///char ruta[150];
   FILE *bin;
   tIndice indice;
   tLista listaSocios;
+  tLista aux;
   tSocio socio;
-  tRegistro registro;
   unsigned i = 0;
-  int iteraciones;
+  int iteraciones = 0;
 
-  //crearLoteDePrueba();
+  ///crearLoteDePrueba();
 
   ///printf("Ingrese la ruta:");
   ///scanf("%s",ruta);
@@ -42,21 +52,34 @@ int main(){
 
   abrirArchivo(&bin,"socios.data","rb");
 
-  crearIndice(&indice);
+  crearLista(&listaSocios);
+
+  crearIndice(&indice,sizeof(long int),compararNumeroDeSocio);
 
   fread(&socio,sizeof(tSocio),1,bin);
 
-  iteraciones = ftell(&bin);
 
   while(!feof(bin)){
-    ponerEnOrden(&listaSocios,&socio,sizeof(tSocio),compararNumeroDeSocio,NULL);
+    iteraciones++;
+    ponerAlComienzo(&listaSocios,&socio,sizeof(tSocio));
+    ///ponerEnOrden(&listaSocios,&socio,sizeof(tSocio),compararNumeroDeSocio,acumular);
     fread(&socio,sizeof(tSocio),1,bin);
   }
 
-  while(sacarPrimeroLista(&listaSocios,&socio,sizeof(tSocio))){
-    insertarIndice(&indice,&socio,i++);
+  insertarIndice(&indice,&listaSocios,i++);
+  aux = listaSocios;
+
+  while(iteraciones--){
+    listaSocios = siguienteDeLista(&listaSocios);
+    insertarIndice(&indice,&listaSocios,i++);
   }
-  mostrarIndice(&indice,mostrarNumReg);
+
+  listaSocios = aux;
+
+  mostrarIndice(&indice,mostrarNroReg,stdout);
+  vaciarLista(&listaSocios);
+
+
 
   ///En lugar de un switch case se podría
   ///usar una variable que contenga funciones

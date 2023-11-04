@@ -78,7 +78,7 @@ int verUltimoLista(const tLista* pl, void* dato, size_t tam){
   if(*pl == NULL)
     return 0;
 
-  while(*pl)
+  while((*pl)->sig)
     pl = &(*pl)->sig;
 
   memcpy(dato,(*pl)->dato,minimo((*pl)->tam,tam));
@@ -212,6 +212,8 @@ void ordenar(tLista* pl, int(*cmp)(const void*,const void*)){
 
 tLista* buscarMenor(tLista* pl, int (*cmp)(const void*, const void*)){
   tLista* menor = pl;
+
+  pl = &(*pl)->sig;
 
   while(*pl){
     if(cmp((*menor)->dato, (*pl)->dato) > 0)

@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "indice/indice.h"
 #include "lista/lista.h"
+#include "indice/indice.h"
 
 #define TODO_OK 1
 #define ERROR_ARCH 0
@@ -40,6 +40,7 @@ typedef struct{
 }tSocio;
 
 //typedef (*fOpcion)(tSocio*,FILE*);
+typedef tSocio tDato;
 
 int crearLoteDePrueba();
 int pasarArchTxtABin(const char* rutaTxt,const char* rutaBin);
