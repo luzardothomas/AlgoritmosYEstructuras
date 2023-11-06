@@ -5,7 +5,7 @@
 	<string.h>
 	"TP.h"
 
-1698431148 
+1699137308 
 
 1698431273 c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\tp.h
 	<stdio.h>
@@ -14,7 +14,7 @@
 	"lista/lista.h"
 	"indice/indice.h"
 
-1698431273 dice.h"
+1699137308 dice.h"
 
 1698429183 source:c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\tp.c
 	"TP.h"
@@ -82,6 +82,8 @@
 	"TP.h"
 	<windows.h>
 
+1699137308 >
+
 1699114179 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.c
 	"indice.h"
 
@@ -92,4 +94,66 @@
 
 1699063245 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.c
 	"lista.h"
+
+1699143804 source:c:\users\pablo\downloads\algoritmosyestructuras-main (2)\algoritmosyestructuras-main\tp\tp-integrador\indice\indice.c
+	"indice.h"
+
+1699142886 c:\users\pablo\downloads\algoritmosyestructuras-main (2)\algoritmosyestructuras-main\tp\tp-integrador\indice\indice.h
+	"../TP.h"
+
+1699137308 c:\users\pablo\downloads\algoritmosyestructuras-main (2)\algoritmosyestructuras-main\tp\tp-integrador\tp.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lista/lista.h"
+	"indice/indice.h"
+
+1699137308 c:\users\pablo\downloads\algoritmosyestructuras-main (2)\algoritmosyestructuras-main\tp\tp-integrador\lista\lista.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1699137308 source:c:\users\pablo\downloads\algoritmosyestructuras-main (2)\algoritmosyestructuras-main\tp\tp-integrador\lista\lista.c
+	"lista.h"
+
+1699144283 source:c:\users\pablo\downloads\algoritmosyestructuras-main (2)\algoritmosyestructuras-main\tp\tp-integrador\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TP.h"
+
+1699137308 source:c:\users\pablo\downloads\algoritmosyestructuras-main (2)\algoritmosyestructuras-main\tp\tp-integrador\tp.c
+	"TP.h"
+	<windows.h>
+
+1699277838 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.c
+	"indice.h"
+
+1699277680 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.h
+	"../TP.h"
+
+1699152215 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lista/lista.h"
+	"indice/indice.h"
+
+1699152215 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1699153383 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.c
+	"lista.h"
+
+1699203324 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.c
+	"TP.h"
+	<windows.h>
+
+1699277838 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TP.h"
 

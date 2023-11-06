@@ -1,4 +1,5 @@
 #include "lista.h"
+typedef int (*cmp)(const void*,const void*);
 void crearLista(tLista* pl){
   *pl = NULL;
 }
@@ -159,20 +160,23 @@ int mostrarListaAlRevesYVaciar(tLista* pl, void (*mostrar)(const void*,FILE*),FI
 }
 
 int ponerEnOrden(tLista* pl,const void* dato, size_t tam,
-                 int (*cmp)(const void*, const void*),
+                 cmp comp,
                  int(*acumular)(void**,size_t*,const void*,size_t)){
   tNodo* nue;
 
-  while(*pl && cmp((*pl)->dato,dato) < 0)
+  while(*pl && comp((*pl)->dato,dato) < 0)
     pl = &(*pl)->sig;
 
-  if(*pl && cmp((*pl)->dato,dato) == 0)
+  if(*pl && comp((*pl)->dato,dato) == 0)
     return 2;
 
   nue = (tNodo*)malloc(sizeof(tNodo));
+
   if(nue == NULL)
     return 0;
+
   nue->dato = malloc(tam);
+
   if(nue->dato == NULL){
     free(nue);
     return 0;

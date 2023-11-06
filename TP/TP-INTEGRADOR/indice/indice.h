@@ -11,28 +11,19 @@
 
 #define MEN(x,y) ((x) < (y) ? (x) : (y))
 
-
 typedef int (*cmp)(const void*, const void*);
 typedef void (*accion)(const void *, unsigned, void *);
 
-typedef struct sigInd{
+typedef struct{
   void* clave;
   unsigned nroReg;
-  struct sigInd* sig;
-}indice;
+}tRegistroIndice;
 
 typedef struct{
-  tLista* lista;
-  ///indice* ind;
+  tLista lista;
   size_t tamClave;
   cmp comp;
-  ///nroReg = 1
-
 }tIndice;
-
-
-
-void mostrarIndice(const tIndice* pin, void (*mostrar)(const void*,FILE*),FILE* pf);
 
 void crearIndice(tIndice* ind, size_t tamClave, cmp comp);
 int insertarIndice(tIndice* pin, void *clave, unsigned nroReg);
@@ -43,5 +34,6 @@ int grabarIndice(const tIndice* pin, const char* path);
 void vaciarIndice(tIndice* pin);
 int recorrerIndice(const tIndice* pin,accion act , void* param);
 
+void mostrarIndice(const tIndice* pin, void (*mostrar)(const void*,FILE*),FILE* pf);
 
 #endif // INDICE_H_INCLUDED
