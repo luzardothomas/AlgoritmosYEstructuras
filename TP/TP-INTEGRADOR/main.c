@@ -10,13 +10,13 @@ int compararNumeroDeSocio(const void* a, const void* b){
 }
 
 int compararRegistroIndiceSocios(const void* elem1, const void*elem2){
-    tRegistroIndice* regIndice1 = (tRegistroIndice*)elem1;
-    tRegistroIndice* regIndice2 = (tRegistroIndice*)elem2;
+  tRegistroIndice* regIndice1 = (tRegistroIndice*)elem1;
+  tRegistroIndice* regIndice2 = (tRegistroIndice*)elem2;
 
-    long int *clave1 = (long int *)(regIndice1->clave);
-    long int *clave2 = (long int *)(regIndice2->clave);
+  long int *clave1 = (long int *)(regIndice1->clave);
+  long int *clave2 = (long int *)(regIndice2->clave);
 
-    return *clave1 - *clave2;
+  return *clave1 - *clave2;
 }
 
 void mostrarNroReg(const void* a, FILE* pf){
