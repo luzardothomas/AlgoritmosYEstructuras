@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define minimo(x,y) ((x)<(y) ? (x):(y))
+
 typedef struct sNodo{
   void* dato;
   size_t tam;
@@ -37,20 +38,10 @@ void ordenarLista(tLista* pl, int(*cmp)(const void*,const void*));
 void reduceList(tLista* pl,void* acu, void (*acum)(void*,const void*));
 int filterList(tLista* pl,void* comp, int (*cmp)(const void*,const void*));
 
-tLista* buscarOcurrencias(tLista* pl,const void* ocur,int(*cmp)(const void*,const void*));
+tLista* buscarOcurrencia(const tLista* pl,const void* ocur,int(*cmp)(const void*,const void*));
 int agrupar(tLista* pl, int(*cmp)(const void*,const void*), int (*acum)(void*,const void*));
 int eliminarPorClave(tLista* pl,const void* dato,int(*cmp)(const void*,const void*));
 
-/// ================================================== MAIN ==================================================
-void mostrarEnteros(const void* a,FILE* pf);
-int compararEnteros(const void*a, const void*b);
-int acumularEnteros(void** pl,size_t* pltam,const void* dato,size_t tam);
-int acumularStock(void* a,const void* b);
-int compararCodProd(const void*a, const void*b);
-void mostrarProductos(const void* a, FILE* pf);
-void acumularNotas(void* a, const void* b);
-int compararNotas(const void*a, const void*b);
-void mostrarAlumnos(const void* a,FILE* pf);
 
 
 #endif // LISTASIMPLE_H_INCLUDED
