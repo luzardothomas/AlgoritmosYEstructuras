@@ -135,7 +135,6 @@ int mostrarListaYVaciar(tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf)
   return cant;
 }
 
-
 int mostrarListaAlReves(const tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf){
   int cant = 0;
   if(*pl){
@@ -249,15 +248,20 @@ void ordenarLista(tLista* pl, int (*cmp)(const void*, const void*)) {
   }
 }
 
-tLista* buscarOcurrencias(tLista* pl,const void* ocur,int(*cmp)(const void*,const void*)){
-  tLista* buscar = pl;
+tLista* buscarOcurrencia(const tLista* pl,const void* ocur,int(*cmp)(const void*,const void*)){
+  tLista* buscar = (tLista*)pl;
+  tLista* aux = (tLista*)pl;
+  int comp = -1;
+
   pl = &(*pl)->sig;
-  while(*pl){
-    if(cmp((*pl)->dato,ocur) == 0)
-      buscar = pl;
+
+  while(*pl && comp){
+    comp = cmp((*pl)->dato,ocur);
+    if(comp == 0)
+      buscar = (tLista*)pl;
     pl = &(*pl)->sig;
   }
-  return buscar;
+  return comp ? aux : buscar;
 }
 
 int agrupar(tLista* pl, int(*cmp)(const void*,const void*), int (*acum)(void*,const void*)){
@@ -268,7 +272,7 @@ int agrupar(tLista* pl, int(*cmp)(const void*,const void*), int (*acum)(void*,co
 
   while((*pl)->sig){
 
-    buscar = buscarOcurrencias(pl,(*pl)->dato,cmp);
+    buscar = buscarOcurrencia(pl,(*pl)->dato,cmp);
 
     if(buscar != pl){
       acum((*pl)->dato,(*buscar)->dato);

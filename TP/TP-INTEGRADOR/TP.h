@@ -12,9 +12,9 @@
 #define ERROR_REGIS 0
 
 #define ES_LETRA(x) (((x) >= 'a' && (x) <= 'z') || ((x) >= 'A' && (x) <= 'Z'))
-#define A_MAYUS(c)    (c)>=('a') && (c)<=('z') ? (c)- (' ') : (c)
-#define menor(a,b)      (a)<(b)? (a):(b)
-#define mayor(a,b)      (a)>(b)? (a):(b)
+#define A_MAYUS(x)    (((x) >= 'a' && (x) <= 'z') ? ((x)-(' ')) : (x))
+#define menor(a,b)      ((a)<(b) ? (a):(b))
+#define mayor(a,b)      ((a)>(b) ? (a):(b))
 
 typedef struct{
 
@@ -39,17 +39,43 @@ typedef struct{
 
 }tSocio;
 
-//typedef (*fOpcion)(tSocio*,FILE*);
-typedef tSocio tDato;
+typedef int (*fOpcion)(tIndice*,unsigned,FILE*);
+
+///Funciones utilitarias
+
+void limpiarPantalla();
+void limpiarBuffer();
+int miStrcmpi(const char * cad1, const char * cad2);
+int esBisiesto(unsigned anio);
+int validarFecha(tFecha fecha);
+
+///Funciones de Archivos
 
 int crearLoteDePrueba();
 int pasarArchTxtABin(const char* rutaTxt,const char* rutaBin);
-int validarLoteDeDatosDelClub(tSocio* socio);
 int abrirArchivo(FILE** pf, const char* ruta, const char* modo);
-int leerSocios(FILE** pf,tSocio* socios);
-void mostrarSocios(const tSocio* socios, FILE* pf);
+
+///Funciones de Socios
+
+int leerSocios(void* a,FILE** pf);
+void mostrarSocios(const void* a, FILE* pf);
 void grabarSocios(FILE** pf, tSocio* socios);
-char menu();
+int validarLoteDeDatosDelClub(tSocio* socio);
+tSocio completarDatos();
+
+///Funciones de Menu
+
+char completarMenu();
+int menu();
 void mostrarMenu();
+
+///Funciones de Acción
+
+int darDeAlta(tIndice* pin,unsigned nroReg,FILE* pf);
+int darDeBaja(tIndice* pin,unsigned nroReg,FILE* pf);
+int modificarAyN(tIndice* pin,unsigned nroReg,FILE* pf);
+int listarSociosDeBaja(tIndice* pin,unsigned nroReg,FILE* pf);
+int verSociosActivos(tIndice* pin,unsigned nroReg,FILE* pf);
+int verMayoresDeudores(tIndice* pin,unsigned nroReg,FILE* pf);
 
 #endif // TP_H_INCLUDED

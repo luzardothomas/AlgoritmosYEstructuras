@@ -1,8 +1,16 @@
 #include "TP.h"
+#include <string.h>
+#include <time.h>
 
 #ifdef _WIN32
   #include<windows.h>
 #endif
+
+void limpiarBuffer(){
+  int c;
+  /// Descarta el carácter actual y continúa leyendo hasta encontrar '\n' o EOF.
+  while ((c = getchar()) != '\n' && c != EOF);
+}
 
 void limpiarPantalla(){
   #ifdef _WIN32
@@ -10,6 +18,14 @@ void limpiarPantalla(){
   #else
     system("clear");
   #endif
+}
+
+int miStrcmpi(const char * cad1, const char * cad2){
+  while(*cad1 && *cad2 && A_MAYUS(*cad1) == A_MAYUS(*cad2)){
+    cad1++;
+    cad2++;
+  }
+  return *cad1-*cad2;
 }
 
 int crearLoteDePrueba(){
@@ -85,6 +101,99 @@ int crearLoteDePrueba(){
 
 }
 
+tSocio completarDatos(){
+  tSocio socio;
+
+  #define LLENAR_DATOS
+  #ifdef LLENAR_DATOS
+
+  socio.nro = 150;
+  strcpy(socio.nya,"Lopez, Maximiliano");
+  socio.dni = 43951723;
+  socio.nacimiento.dia = 1;
+  socio.nacimiento.mes = 1;
+  socio.nacimiento.anio = 2001;
+  socio.sexo = 'o';
+  socio.afiliacion.dia = 22;
+  socio.afiliacion.mes = 1;
+  socio.afiliacion.anio = 2023;
+  strcpy(socio.categoria,"Adulto");
+  socio.ultimaPaga.dia = 22;
+  socio.ultimaPaga.mes = 11;
+  socio.ultimaPaga.anio = 2023;
+  socio.estado = 'A';
+  return socio;
+
+  #endif // LLENAR_DATOS
+
+  printf("Numero de socio: ");
+  scanf("%ld",&socio.nro);
+
+  limpiarBuffer();
+
+  printf("Apellido,nombre completo: ");
+  scanf("%60[^\n]",socio.nya);
+
+  printf("Dni: ");
+  scanf("%ld",&socio.dni);
+
+  printf("Fecha de nacimiento (dd/mm/aaaa): ");
+  scanf("%d/%d/%d",&socio.nacimiento.dia,
+                   &socio.nacimiento.mes,
+                   &socio.nacimiento.anio);
+
+  limpiarBuffer();
+
+  printf("Sexo ('M' (Masculino)/'F' (Femenino) /'O' (Otro planeta como Namekusei)): ");
+  scanf("%c",&socio.sexo);
+
+  printf("Fecha de afiliacion (dd/mm/aaaa): ");
+  scanf("%d/%d/%d",&socio.afiliacion.dia,
+                   &socio.afiliacion.mes,
+                   &socio.afiliacion.anio);
+
+  limpiarBuffer();
+
+  printf("Categoria ('MENOR'/'CADETE'/'ADULTO'/'VITALICIO'/'HONORARIO'/'JUBILADO'):");
+  scanf("%10[^\n]",socio.categoria);
+
+  printf("Fecha de ultima cuota pagada (dd/mm/aaaa): ");
+  scanf("%d/%d/%d",&socio.ultimaPaga.dia,
+                   &socio.ultimaPaga.mes,
+                   &socio.ultimaPaga.anio);
+
+  limpiarBuffer();
+
+  printf("Estado ('A' (Activo)/'I' (Inactivo)):");
+  scanf("%c",&socio.estado);
+
+  if(A_MAYUS(socio.estado) == 'I'){
+    printf("Fecha de baja (dd/mm/aaaa): ");
+    scanf("%d/%d/%d",&socio.baja.dia,
+                     &socio.baja.mes,
+                     &socio.baja.anio);
+  }
+  return socio;
+}
+
+int esBisiesto(unsigned anio){
+  return ((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0);
+}
+
+int validarFecha(tFecha fecha){
+  int dias[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+
+  if(!(fecha.mes >= 1 && fecha.mes <= 12))
+    return ERROR_REGIS;
+
+  esBisiesto(fecha.anio) ? dias[1]++ : 0;
+
+  if(!(fecha.dia >= 1 && fecha.dia <= dias[fecha.dia-1]))
+    return ERROR_REGIS;
+
+  return TODO_OK;
+}
+
 int validarLoteDeDatosDelClub(tSocio* socio){
 
   if(!(socio->nro >= 1 && socio->nro <= 10000000))
@@ -93,28 +202,39 @@ int validarLoteDeDatosDelClub(tSocio* socio){
   if(!(socio->dni >= 10000 && socio->dni <= 100000000))
     return ERROR_REGIS;
 
-  if(!(socio->sexo == 'F' || socio->sexo == 'M' || socio->sexo == 'O'))
+  if(!(A_MAYUS(socio->sexo) == 'F' || A_MAYUS(socio->sexo) == 'M' || A_MAYUS(socio->sexo) == 'O'))
     return ERROR_REGIS;
 
-  if(!((strcmp(socio->categoria,"MENOR") == 0)    ||
-      (strcmp(socio->categoria,"CADETE") == 0)    ||
-      (strcmp(socio->categoria,"ADULTO") == 0)    ||
-      (strcmp(socio->categoria,"VITALICIO") == 0) ||
-      (strcmp(socio->categoria,"HONORARIO") == 0) ||
-      (strcmp(socio->categoria,"JUBILADO") == 0)))
+  if(!((miStrcmpi(socio->categoria,"MENOR") == 0)     ||
+       (miStrcmpi(socio->categoria,"CADETE") == 0)    ||
+       (miStrcmpi(socio->categoria,"ADULTO") == 0)    ||
+       (miStrcmpi(socio->categoria,"VITALICIO") == 0) ||
+       (miStrcmpi(socio->categoria,"HONORARIO") == 0) ||
+       (miStrcmpi(socio->categoria,"JUBILADO") == 0)))
     return ERROR_REGIS;
 
-  if(!(socio->estado == 'A' || socio->estado == 'I'))
+  if(!(A_MAYUS(socio->estado) == 'A' || A_MAYUS(socio->estado) == 'I'))
     return ERROR_REGIS;
 
-  if(socio->estado == 'A'){
+  if(A_MAYUS(socio->estado) == 'A'){
     socio->baja.dia = 0;
     socio->baja.mes = 0;
     socio->baja.anio = 0;
   }
+  else
+    if(!validarFecha(socio->baja))
+      return ERROR_REGIS;
+
+  if(!validarFecha(socio->nacimiento))
+    return ERROR_REGIS;
+
+  if(!validarFecha(socio->ultimaPaga))
+    return ERROR_REGIS;
+
+  if(!validarFecha(socio->afiliacion))
+    return ERROR_REGIS;
 
   return TODO_OK;
-
 }
 
 int pasarArchTxtABin(const char* rutaTxt,const char* rutaBin){
@@ -132,7 +252,7 @@ int pasarArchTxtABin(const char* rutaTxt,const char* rutaBin){
 
   printf("LISTADO DE SOCIOS:\n");
 
-  while(leerSocios(&pf,&socios) > 0){
+  while(leerSocios(&socios,&pf) > 0){
 
     mostrarSocios(&socios,stdout);
     grabarSocios(&bin,&socios);
@@ -156,8 +276,8 @@ int abrirArchivo(FILE** pf, const char* ruta, const char* modo){
 
 }
 
-int leerSocios(FILE** pf,tSocio* socios){
-
+int leerSocios(void* a,FILE** pf){
+  tSocio* socios = (tSocio*)a;
   return fscanf(*pf,"%ld|%[^|]|%ld|%u/%u/%u|%c|%u/%u/%u|%[^|]|%u/%u/%u|%c|%u/%u/%u\n",&socios->nro,
                                                                                       socios->nya,
                                                                                       &socios->dni,
@@ -180,8 +300,8 @@ int leerSocios(FILE** pf,tSocio* socios){
 
 }
 
-void mostrarSocios(const tSocio* socios, FILE* pf){
-
+void mostrarSocios(const void*a, FILE* pf){
+  tSocio* socios = (tSocio*)a;
   fprintf(pf,"%ld|%s|%ld|%d/%d/%d|%c|%d/%d/%d|%s|%d/%d/%d|%c|%d/%d/%d\n",socios->nro,
                                                                          socios->nya,
                                                                          socios->dni,
@@ -209,8 +329,14 @@ void grabarSocios(FILE** pf, tSocio* socios){
 
 }
 
-char menu(){
+char completarMenu(){
+  char op;
+  scanf("%c",&op);
+  limpiarBuffer();
+  return op;
+}
 
+int menu(){
   char op;
   char abc[] = {
                  1 , 2, 'C',
@@ -224,18 +350,6 @@ char menu(){
                    'Y','Z'
                };
 
-  limpiarPantalla();
-  mostrarMenu();
-  fflush(stdin);
-  scanf("%c",&op);
-
-  if(ES_LETRA(op)){
-      op = A_MAYUS(op);
-      op -= 65;
-  }
-  else
-    op = 3;
-
   ///S = 0
 
   ///A = 1
@@ -245,27 +359,26 @@ char menu(){
   ///P = 5
   ///V = 6
 
-  while(abc[(int)op] > 7){
+  do{
 
-    limpiarPantalla();
-    printf("OPCION NO VALIDA\n\n");
     mostrarMenu();
-    fflush(stdin);
-    scanf("%c",&op);
+
+    op = completarMenu();
 
     if(ES_LETRA(op)){
       op = A_MAYUS(op);
       op -= 65;
     }
-    else
+    else{
+      printf("OPCION NO VALIDA\n\n");
       op = 3;
-
+    }
   }
+  while(abc[(int)op] > 7);
 
   op = abc[(int)op];
 
   return op;
-
 }
 
 void mostrarMenu(){
@@ -279,4 +392,202 @@ void mostrarMenu(){
          "P-->TOP 10 CON MAYOR RETRASO EN LA CUOTA\n"
          "S-->SALIR\n");
   printf("Ingrese la opcion deseada-->\t");
+}
+
+int darDeAlta(tIndice* pin,unsigned nroReg,FILE* pf){
+  tSocio socio;
+  tRegistroIndice dato;
+  dato.nroReg = nroReg;
+
+  do{
+      socio = completarDatos();
+    }while(validarLoteDeDatosDelClub(&socio) != 1);
+
+  memcpy(&dato.clave,&socio.dni,pin->tamClave);
+
+  rewind(pf);
+
+  if((buscarIndice(pin,&dato,dato.nroReg)) != ENCONTRADO){
+     fseek(pf,sizeof(tSocio)*nroReg,SEEK_SET);
+     fread(&socio,sizeof(tSocio),1,pf);
+     if(A_MAYUS(socio.estado) == 'A')
+      printf("El socio con DNI %ld Numero de Registro %d solicitado se encuentra en estado activo",socio.dni,dato.nroReg);
+     else{
+      socio.estado = 'A';
+      socio.baja.dia = 0;
+      socio.baja.mes = 0;
+      socio.baja.anio = 0;
+      fflush(pf);
+      fseek(pf,sizeof(tSocio)*nroReg,SEEK_SET);
+      fwrite(&socio,sizeof(tSocio),1,pf);
+      return ENCONTRADO;
+     }
+  }
+
+  dato.nroReg++;
+
+  return NO_ENCONTRADO;
+}
+
+int darDeBaja(tIndice* pin,unsigned nroReg,FILE* pf){
+  return 1;
+}
+
+
+
+int modificarAyN(tIndice* pin,unsigned nroReg,FILE* pf){
+  tSocio socio;
+  tRegistroIndice dato;
+
+  dato.nroReg = nroReg;
+
+  do{
+      limpiarPantalla();
+      printf("Escriba el Nro de Socio que quiere modificar el Apellido, Nombre:");
+      scanf("%ld",&socio.nro);
+    }while(validarLoteDeDatosDelClub(&socio) != 1);
+
+  memcpy(&dato.clave,&socio.nro,pin->tamClave);
+
+  rewind(pf);
+
+  if(buscarIndice(pin,&dato,dato.nroReg) == NO_ENCONTRADO)
+    return NO_ENCONTRADO;
+
+  fseek(pf,sizeof(tSocio)*nroReg,SEEK_SET);
+  fread(&socio,sizeof(tSocio),1,pf);
+  fflush(pf);
+  limpiarBuffer();
+  printf("Escriba el Nro de Socio que quiere modificar el Apellido, Nombre:");
+  scanf("%60[^\n]",socio.nya);
+  fseek(pf,sizeof(tSocio)*nroReg,SEEK_SET);
+  fread(&socio,sizeof(tSocio),1,pf);
+  return ENCONTRADO;
+}
+
+int listarSociosDeBaja(tIndice* pin,unsigned nroReg,FILE* pf){
+  tLista* lista = (tLista*)&pin->lista;
+  tRegistroIndice* pa;
+  tSocio socio;
+
+  if(!*lista)
+    return INDICE_VACIO;
+
+  rewind(pf);
+
+  printf("\n============================ SOCIOS DADOS DE BAJA ============================\n");
+
+  while(*lista){
+
+    pa = (tRegistroIndice*)((*lista)->dato);
+    nroReg = pa->nroReg;
+
+    fseek(pf,sizeof(tSocio)*nroReg,SEEK_SET);
+    fread(&socio,sizeof(tSocio),1,pf);
+
+    if((socio.baja.dia+socio.baja.mes+socio.baja.anio))
+      mostrarSocios(&socio,stdout);
+
+    lista = &(*lista)->sig;
+  }
+
+  return TODO_OK;
+}
+
+int verSociosActivos(tIndice* pin,unsigned nroReg,FILE* pf){
+  tLista* lista = (tLista*)&pin->lista;
+  tRegistroIndice* pRegistro;
+  tSocio socio;
+
+  if(!*lista)
+    return INDICE_VACIO;
+
+  rewind(pf);
+
+  printf("\n============================ SOCIOS ACTIVOS ============================\n");
+
+  while(*lista){
+
+    pRegistro = (tRegistroIndice*)((*lista)->dato);
+    nroReg = pRegistro->nroReg;
+
+    fseek(pf,sizeof(tSocio)*nroReg,SEEK_SET);
+    fread(&socio,sizeof(tSocio),1,pf);
+
+    if(!(socio.baja.dia+socio.baja.mes+socio.baja.anio))
+      mostrarSocios(&socio,stdout);
+
+    lista = &(*lista)->sig;
+  }
+
+  return TODO_OK;
+}
+
+int contarNodos(tLista pl){
+  int cont = 0;
+  while(pl){
+    cont++;
+    pl = pl->sig;
+  }
+  return cont;
+}
+
+int compararDiasDeAtraso(const void* fecha1, const void* fecha2){
+  tSocio *pa = (tSocio*)fecha1;
+  tSocio *pb = (tSocio*)fecha2;
+
+  return (pa->ultimaPaga.dia - pa->afiliacion.dia) - (pb->ultimaPaga.dia - pb->afiliacion.dia);
+}
+
+int verMayoresDeudores(tIndice* pin,unsigned nroReg,FILE* pf){
+  tLista lista = pin->lista;
+  tLista aux;
+  tRegistroIndice* pRegistro;
+  tSocio socio;
+  unsigned iteraciones = 10;
+
+  printf("\n============================ TOP 10 SOCIOS MOROSOS ============================\n");
+
+  if(!lista)
+    return INDICE_VACIO;
+
+  if(contarNodos(lista) < 10)
+    return POCOS_SOCIOS;
+
+  crearLista(&aux);
+
+  rewind(pf);
+
+  while(lista){
+    pRegistro = (tRegistroIndice*)((lista)->dato);
+    nroReg = pRegistro->nroReg;
+
+    fseek(pf,sizeof(tSocio)*nroReg,SEEK_SET);
+    fread(&socio,sizeof(tSocio),1,pf);
+
+    ///Version 1 (No considera los Socios Inactivos
+
+    //if(!(socio.baja.anio + socio.baja.anio + socio.baja.anio))
+      //if(!ponerEnOrden(&aux,&socio,sizeof(tSocio),compararDiasDeAtraso,NULL))
+        //return SIN_MEM;
+
+    ///Version 2 (Los considera parte del Top 10)
+
+    if(!ponerEnOrden(&aux,&socio,sizeof(tSocio),compararDiasDeAtraso,NULL))
+        return SIN_MEM;
+    lista = lista->sig;
+  }
+
+  lista = aux;
+
+  ///Muestra solo los diez primeros
+
+  while(iteraciones--){
+    mostrarSocios(lista->dato,stdout);
+    lista = lista->sig;
+  }
+
+  vaciarLista(&aux);
+
+  return TODO_OK;
 }

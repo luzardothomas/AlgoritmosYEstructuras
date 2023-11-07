@@ -126,34 +126,38 @@
 	"TP.h"
 	<windows.h>
 
-1699277838 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.c
+1699385856 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.c
 	"indice.h"
-
-1699277680 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.h
 	"../TP.h"
 
-1699152215 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.h
+1699385856 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.h
+	"../lista/lista.h"
+
+1699380214 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"lista/lista.h"
 	"indice/indice.h"
 
-1699152215 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.h
+1699350168 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1699153383 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.c
+1699381378 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.c
 	"lista.h"
 
-1699203324 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.c
+1699388124 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.c
 	"TP.h"
+	<string.h>
+	<time.h>
 	<windows.h>
 
-1699277838 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/main.c
+1699388067 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"TP.h"
+	<time.h>
 
