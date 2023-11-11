@@ -29,6 +29,7 @@ int main(){
 
   tIndice indiceNroSocio;
   tSocio socio;
+  int limpiar[] = {1,1,0,1,0,0};
   fOpcion opciones[] = {darDeAlta,
                         darDeBaja,
                         listarSociosDeBaja,
@@ -44,17 +45,17 @@ int main(){
   ///P = 4
   ///V = 5
 
-  crearLoteDePrueba();
+  ///crearLoteDePrueba();
 
-  ///printf("Ingrese la ruta:");
-  ///scanf("%s",ruta);
+  printf("Ingrese la ruta:");
+  scanf("%s",ruta);
+
+  limpiarBuffer();
 
   ///socios.txt es la ruta correcta
 
-  strcpy(ruta,"socios.txt");
-
   if(pasarArchTxtABin(ruta,"socios.data") != TODO_OK)
-    return 0;
+    return RUTA_INVALIDA;
 
   crearIndice(&indiceNroSocio,sizeof(long int),compararRegistroIndiceSocios);
 
@@ -84,7 +85,12 @@ int main(){
   while(op){
 
     opciones[op-1](&indiceNroSocio,&iteraciones,bin);
+
+    if(limpiar[op-1])
+      limpiarBuffer();
+
     op = menu();
+
     limpiarPantalla();
 
   }

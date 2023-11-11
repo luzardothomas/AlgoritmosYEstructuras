@@ -1,6 +1,13 @@
 #include "TP.h"
 #include <string.h>
 #include <time.h>
+
+/** Si desactivas el LLENAR_DATOS tenes que ingresar
+*   manualmente los Socios para darlos de Alta
+*/
+
+#define LLENAR_DATOS
+
 #ifdef _WIN32
   #include<windows.h>
 #endif
@@ -229,7 +236,6 @@ char completarMenu(){
 tSocio completarDatos(){
   tSocio socio;
 
-  #define LLENAR_DATOS
   #ifdef LLENAR_DATOS
 
   strcpy(socio.nya,"Mercury, Freddie \0");
@@ -241,7 +247,7 @@ tSocio completarDatos(){
   socio.afiliacion.dia = 22;
   socio.afiliacion.mes = 1;
   socio.afiliacion.anio = 2023;
-  strcpy(socio.categoria,"Adulto");
+  strcpy(socio.categoria,"ADULTO");
   socio.ultimaPaga.dia = 28;
   socio.ultimaPaga.mes = 11;
   socio.ultimaPaga.anio = 2023;
@@ -280,6 +286,8 @@ tSocio completarDatos(){
 
   printf("Categoria ('MENOR'/'CADETE'/'ADULTO'/'VITALICIO'/'HONORARIO'/'JUBILADO'):");
   scanf("%10[^\n]",socio.categoria);
+
+  limpiarBuffer();
 
   printf("Fecha de ultima cuota pagada (dd/mm/aaaa): ");
   scanf("%d/%d/%d",&socio.ultimaPaga.dia,
@@ -428,8 +436,10 @@ int darDeAlta(tIndice* pin,unsigned* nroReg,FILE* pf){
 
   do{
       teclado = completarDatos();
+      #ifdef LLENAR_DATOS
       printf("\nIngrese el numero de socio:");
       scanf("%ld",&teclado.nro);
+      #endif // LLENAR_DATOS
     }while(validarLoteDeDatosDelClub(&teclado) != 1);
 
   rewind(pf);
