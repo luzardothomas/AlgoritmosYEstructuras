@@ -475,8 +475,6 @@ int darDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
   tSocio socio;
   tSocio teclado;
 
-  long int diferencia;
-
   time_t tiempo1;
   time_t tiempo2;
 
@@ -499,10 +497,6 @@ int darDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
     while(socio.nro != teclado.nro)
       fread(&socio,sizeof(tSocio),1,pf);
 
-    printf("La fecha de afilicacion es: %02d/%02d/%04d",socio.afiliacion.dia,
-                                                        socio.afiliacion.mes,
-                                                        socio.afiliacion.anio);
-
     tmFecha1.tm_year = socio.afiliacion.anio - 1900;
     tmFecha1.tm_mon = socio.afiliacion.mes - 1;
     tmFecha1.tm_mday = socio.afiliacion.dia;
@@ -519,18 +513,13 @@ int darDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
                        &teclado.baja.mes,
                        &teclado.baja.anio);
 
-
-
       tmFecha2.tm_year = teclado.baja.anio - 1900;
       tmFecha2.tm_mon = teclado.baja.mes - 1;
       tmFecha2.tm_mday = teclado.baja.dia;
 
       tiempo2 = mktime(&tmFecha2);
 
-      diferencia = difftime(tiempo2,tiempo1);
-
-
-    }while(!(validarFecha(teclado.baja) && diferencia >= 0));
+    }while(!(validarFecha(teclado.baja) && difftime(tiempo2,tiempo1) >= 0));
 
 
     eliminarIndice(pin,pin->regInd,nroReg);
