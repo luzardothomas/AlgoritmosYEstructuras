@@ -8,7 +8,6 @@
 #define TODO_OK 1
 #define ERROR_ARCH 0
 #define ERROR_REGIS 0
-#define VALOR_ABSOLUTO(x) (((x) < 0) ? (-x) : (x))
 #define ES_LETRA(x) (((x) >= 'a' && (x) <= 'z') || ((x) >= 'A' && (x) <= 'Z'))
 #define A_MAYUS(x)    (((x) >= 'a' && (x) <= 'z') ? ((x)-(' ')) : (x))
 #define menor(a,b)      ((a)<(b) ? (a):(b))
