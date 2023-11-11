@@ -17,7 +17,7 @@ int compararRegistroIndiceSocios(const void* a, const void* b){
 }
 void mostrarNroSocio(const void * a, unsigned b, void * c){
   long int* nroSocio = (long int*)a;
-  unsigned* nroReg = (unsigned*)(a + sizeof(long int));
+  unsigned* nroReg = (unsigned*)((char*)a + sizeof(long int));
 
   printf("Numero de registro %d Numero de socio %ld\n",*nroReg,*nroSocio);
 }
