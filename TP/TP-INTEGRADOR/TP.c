@@ -630,11 +630,11 @@ int listarSociosDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
   printf("\n============================ SOCIOS DADOS DE BAJA ============================\n");
 
   fread(&socio,sizeof(tSocio),1,pf);
+
   while(!feof(pf)){
-
-    mostrarSocios(&socio,stdout);
+    if(A_MAYUS(socio.estado) == 'I')
+      mostrarSocios(&socio,stdout);
     fread(&socio,sizeof(tSocio),1,pf);
-
   }
 
   return TODO_OK;

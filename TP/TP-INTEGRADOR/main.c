@@ -66,7 +66,7 @@ int main(){
 
   while(!feof(bin)){
 
-    if(socio.estado == 'A')
+    if(A_MAYUS(socio.estado) == 'A')
       insertarIndice(&indiceNroSocio,&socio.nro,iteraciones++);
 
     fread(&socio,sizeof(tSocio),1,bin);
