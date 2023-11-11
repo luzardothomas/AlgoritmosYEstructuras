@@ -1,6 +1,7 @@
 #ifndef INDICE_H_INCLUDED
 #define INDICE_H_INCLUDED
 #include "../lista/lista.h"
+#define RUTA_INVALIDA   0
 #define INACTIVO        0
 #define POCOS_SOCIOS    0
 #define INDICE_LLENO    0
