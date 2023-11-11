@@ -446,7 +446,7 @@ int darDeAlta(tIndice* pin,unsigned* nroReg,FILE* pf){
         socio.baja.mes = 0;
         socio.baja.anio = 0;
         fflush(pf);
-        fseek(pf,sizeof(tSocio)*(*nroReg),SEEK_SET);
+        fseek(pf,-1*sizeof(tSocio),SEEK_CUR);
         fwrite(&socio,sizeof(tSocio),1,pf);
       }
       return ENCONTRADO;
