@@ -5,151 +5,123 @@ void crearIndice(tIndice* pin, size_t tamClave, cmp comp){
   pin->comp = comp;
   pin->tamClave = tamClave;
   pin->lista = NULL;
+  pin->regInd = malloc(pin->tamClave + sizeof(unsigned));
 }
-
 int insertarIndice(tIndice* pin, void *clave, unsigned nroReg){
-  tRegistroIndice registroIndice;
 
-  registroIndice.clave = malloc(pin->tamClave);
-
-  if(!registroIndice.clave)
+  if(!pin->regInd)
     return SIN_MEM;
 
-  memcpy(registroIndice.clave,clave,pin->tamClave);
+  memcpy(pin->regInd,clave,pin->tamClave);
+  memcpy((char*)pin->regInd + pin->tamClave,&nroReg,sizeof(unsigned));
 
-  registroIndice.nroReg = nroReg;
-
-  if(!ponerEnOrden(&pin->lista, &registroIndice,sizeof(tRegistroIndice),pin->comp,NULL))
+  if(!ponerEnOrden(&pin->lista,pin->regInd,pin->tamClave + sizeof(unsigned),pin->comp,NULL))
     return SIN_MEM;
 
   return TODO_OK;
 }
+int eliminarIndice(tIndice* pin, void *clave,unsigned* nroReg){
 
-int recorrerIndice(const tIndice* pin, accion action,void* param){
-  tLista actual = pin->lista;
-  tRegistroIndice registroIndice;
+  if(!pin->regInd)
+    return SIN_MEM;
 
-  if(!actual)
-    return INDICE_VACIO;
+  if(!pin->lista)
+    return 0;
 
-  while(actual){
-    registroIndice.nroReg = ((tRegistroIndice*)actual->dato)->nroReg;
-    action(actual->dato,registroIndice.nroReg,param);
-    actual = actual->sig;
-  }
-
-  return TODO_OK;
+  return eliminarPorClave(&pin->lista,clave,pin->comp);
 }
+int buscarIndice(const tIndice* pin, void *clave, unsigned* nroReg){
+  tNodo* buscar = NULL;
 
-int buscarIndice(const tIndice* pin, void *clave, unsigned nroReg){
-  tLista* lista = (tLista*)malloc(sizeof(tLista));
-  tNodo* elim = NULL;
-  tRegistroIndice registroIndice;
-
-  registroIndice.clave = malloc(pin->tamClave);
-
-  if(!ponerAlComienzo(lista,&registroIndice,sizeof(registroIndice))){
-    free(registroIndice.clave);
+  if(!pin->regInd)
     return SIN_MEM;
-  }
 
-  if(registroIndice.clave == NULL){
-    free(elim->dato);
-    free(elim);
-    return SIN_MEM;
-  }
+  memcpy(pin->regInd,clave,pin->tamClave);
+  memcpy((char*)pin->regInd + pin->tamClave,nroReg,sizeof(unsigned));
 
-  memcpy(registroIndice.clave,clave,pin->tamClave);
-
-  elim = *lista;
-
-  if((lista = buscarOcurrencia(&pin->lista,&registroIndice,pin->comp)) == pin->lista){
-    free(elim->dato);
-    free(elim);
-    free(registroIndice.clave);
+  if(!(buscar = buscarOcurrencia(&pin->lista,clave,pin->comp)))
     return NO_ENCONTRADO;
-  }
 
-  memcpy(clave,(*lista)->dato,sizeof(tRegistroIndice));
-
-  free(elim->dato);
-  free(elim);
-  free(registroIndice.clave);
+  memcpy(nroReg,(char*)buscar->dato + pin->tamClave,sizeof(unsigned));
 
   return ENCONTRADO;
 }
+int cargarIndice(tIndice* pin, const char* path){
+  FILE* pf;
+  long int clave;
+  unsigned nroReg;
 
-void vaciarIndice(tIndice* pin){
-  tNodo* aux = pin->lista;
+  if(!abrirArchivo(&pf,path,"rb"))
+    return ERROR_ARCH;
 
-  while(aux){
-    pin->lista = aux->sig;
-    free(aux->dato);
-    free(aux);
-    aux = pin->lista;
-  }
-
-}
-
-int eliminarIndice(tIndice* pin, void *clave,unsigned nroReg){
-  tLista* aux =  &pin->lista;
-  tNodo* elim = pin->lista;
-
-  tRegistroIndice registroIndice;
-  int comp;
-
-  if(!*aux)
-    return 0;
-
-  registroIndice.clave = malloc(pin->tamClave);
-
-  if(!registroIndice.clave)
+  if(!pin->regInd)
     return SIN_MEM;
 
-  memcpy(registroIndice.clave,clave,pin->tamClave);
+  fread(pin->regInd,pin->tamClave + sizeof(unsigned),1,pf);
 
-  while(*aux){
-    comp = pin->comp((*aux)->dato,&registroIndice);
-    if(comp == 0){
-      elim = *aux;
-      *aux = (*aux)->sig;
-      memcpy(clave,elim->dato,sizeof(tRegistroIndice));
-      free(elim->dato);
-      free(elim);
-    }
-    aux = &(*aux)->sig;
+  memcpy(&clave,pin->regInd,pin->tamClave);
+  memcpy(&nroReg,(char*)pin->regInd + pin->tamClave,sizeof(unsigned));
+
+  while(!feof(pf)){
+
+    insertarIndice(pin,&clave,nroReg);
+
+    fread(pin->regInd,pin->tamClave + sizeof(unsigned),1,pf);
+
+    memcpy(&clave,pin->regInd,pin->tamClave);
+    memcpy(&nroReg,(char*)pin->regInd + pin->tamClave,sizeof(unsigned));
   }
-  free(registroIndice.clave);
-  return 1;
-}
 
+  return TODO_OK;
+}
 int grabarIndice(const tIndice* pin, const char* path){
   FILE* pf;
   tLista* lista = (tLista*)&pin->lista;
-  tRegistroIndice registroIndice;
+
+  if(!pin->regInd)
+    return SIN_MEM;
 
   if(!abrirArchivo(&pf,path,"wb"))
     return ERROR_ARCH;
 
-  registroIndice.clave = malloc(pin->tamClave);
-
-  if(!registroIndice.clave)
-    return SIN_MEM;
 
   if(!*lista)
     return INDICE_VACIO;
 
   while(*lista){
 
-    memcpy(&registroIndice,(*lista)->dato,sizeof(registroIndice));
+    memcpy(pin->regInd,(*lista)->dato,pin->tamClave);
+    memcpy((char*)pin->regInd + pin->tamClave,(char*)(*lista)->dato + pin->tamClave,sizeof(unsigned));
 
-    fwrite(&registroIndice,sizeof(registroIndice),1,pf);
+    fwrite(pin->regInd,pin->tamClave + sizeof(unsigned),1,pf);
 
     lista = &(*lista)->sig;
   }
 
-  free(registroIndice.clave);
   fclose(pf);
+
+  return TODO_OK;
+}
+void vaciarIndice(tIndice* pin){
+  vaciarLista(&pin->lista);
+  free(pin->regInd);
+}
+int recorrerIndice(const tIndice* pin, accion action,void* param){
+  tLista actual = pin->lista;
+  unsigned nroReg;
+
+  if(!pin->regInd)
+    return SIN_MEM;
+
+  if(!actual)
+    return INDICE_VACIO;
+
+  while(actual){
+    memcpy(pin->regInd,param,pin->tamClave);
+    memcpy((char*)pin->regInd + pin->tamClave,&nroReg,sizeof(unsigned));
+    action(actual->dato,nroReg,param);
+    actual = actual->sig;
+  }
 
   return TODO_OK;
 }

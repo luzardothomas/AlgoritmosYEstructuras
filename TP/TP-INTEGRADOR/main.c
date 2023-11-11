@@ -9,41 +9,25 @@ int compararNumeroDeSocio(const void* a, const void* b){
   tSocio* pb = (tSocio*)b;
   return pa->nro-pb->nro;
 }
+int compararRegistroIndiceSocios(const void* a, const void* b){
+  long int* pa = (long int*)a;
+  long int* pb = (long int*)b;
 
-int compararRegistroIndiceSocios(const void* elem1, const void*elem2){
-  tRegistroIndice* regIndice1 = (tRegistroIndice*)elem1;
-  tRegistroIndice* regIndice2 = (tRegistroIndice*)elem2;
-
-  long int *clave1 = (long int *)(regIndice1->clave);
-  long int *clave2 = (long int *)(regIndice2->clave);
-
-  return *clave1 - *clave2;
+  return *pa-*pb;
 }
+void mostrarNroSocio(const void * a, unsigned b, void * c){
+  long int* nroSocio = (long int*)a;
+  unsigned* nroReg = (unsigned*)(a + sizeof(long int));
 
-void mostrarNroSocio(const void *a, unsigned b, void *c){
-  FILE* pf = (FILE*)c;
-  tRegistroIndice *pa = (tRegistroIndice *)a;
-  long int* clave = (long int*)pa->clave;
-  fprintf(pf,"Numero de registro: %d Numero de socio: %ld\n",pa->nroReg,*clave);
+  printf("Numero de registro %d Numero de socio %ld\n",*nroReg,*nroSocio);
 }
-
-void mostrarDniSocio(const void *a, unsigned b, void *c){
-  FILE* pf = (FILE*)c;
-  tRegistroIndice *pa = (tRegistroIndice *)a;
-  long int* clave = (long int*)pa->clave;
-  fprintf(pf,"Numero de registro: %d Dni de socio: %ld\n",pa->nroReg,*clave);
-}
-
 int main(){
   int op;
   char ruta[150];
   unsigned iteraciones = 0;
   FILE *bin;
-  FILE *idx;
-  FILE *act;
+
   tIndice indiceNroSocio;
-  tIndice indiceDniSocio;
-  tRegistroIndice dato;
   tSocio socio;
   fOpcion opciones[] = {darDeAlta,
                         darDeBaja,
@@ -60,7 +44,7 @@ int main(){
   ///P = 4
   ///V = 5
 
-  ///crearLoteDePrueba();
+  crearLoteDePrueba();
 
   ///printf("Ingrese la ruta:");
   ///scanf("%s",ruta);
@@ -73,18 +57,17 @@ int main(){
     return 0;
 
   crearIndice(&indiceNroSocio,sizeof(long int),compararRegistroIndiceSocios);
-  crearIndice(&indiceDniSocio,sizeof(long int),compararRegistroIndiceSocios);
 
-  abrirArchivo(&bin,"socios.data","rb");
+  abrirArchivo(&bin,"socios.data","r+b");
 
   fread(&socio,sizeof(tSocio),1,bin);
 
+  ///Llenar el Índice
+
   while(!feof(bin)){
 
-    insertarIndice(&indiceNroSocio,&socio.nro,iteraciones);
-    insertarIndice(&indiceDniSocio,&socio.dni,iteraciones);
-
-    iteraciones++;
+    if(socio.estado == 'A')
+      insertarIndice(&indiceNroSocio,&socio.nro,iteraciones++);
 
     fread(&socio,sizeof(tSocio),1,bin);
 
@@ -100,92 +83,52 @@ int main(){
 
   while(op){
 
-    opciones[op-1](&indiceNroSocio,iteraciones,bin);
-
+    opciones[op-1](&indiceNroSocio,&iteraciones,bin);
     op = menu();
+    limpiarPantalla();
+
   }
 
-  puts("");
-
-  limpiarPantalla();
-
-  ///========================================= TEST DE PRIMITIVAS =========================================
-
-  long int n = 20;
-
-  while(n){
-    recorrerIndice(&indiceNroSocio,mostrarNroSocio,stdout);
-    socio.nro = n;
-    memcpy(&dato.clave,&socio.nro,sizeof(socio.nro));
-    if(buscarIndice(&indiceNroSocio,&dato,dato.nroReg)){
-      printf("\nNumero de registro %d\n",dato.nroReg);
-      printf("\nNro de socio:%ld\n",*(long int*)dato.clave);
-    }
-    n--;
-  }
-
-  puts("");
-
-  n = 20;
-
-  /**
-  while(n){
-    recorrerIndice(&indiceNroSocio,mostrarNroSocio,stdout);
-    socio.nro = n;
-    memcpy(&dato.clave,&socio.nro,sizeof(socio.nro));
-    if(eliminarIndice(&indiceNroSocio,&dato,dato.nroReg)){
-      printf("\nNumero de registro %d\n",dato.nroReg);
-      printf("\nNro de socio:%ld\n",*(long int*)dato.clave);
-    }
-    n--;
-  }
-
-  puts("=======================================================================================");
-  */
+  puts("============================================== PRE CARGA INDICE ==============================================");
 
   recorrerIndice(&indiceNroSocio,mostrarNroSocio,stdout);
 
   ///Grabamos el Archivo Índice
-  grabarIndice(&indiceNroSocio,"socios.idx");
 
+  grabarIndice(&indiceNroSocio,"socios.idx");
 
   ///Liberamos la memoria del Índice
 
   vaciarIndice(&indiceNroSocio);
-  fclose(bin);
 
-  ///========================================= TESTING =========================================
+  /**================================================= TESTEO =================================================
+    -Creo el Índice
+    -Lo cargo
+    -Lo recorro
+    -Leo el socios.data
+  */
 
-  abrirArchivo(&bin,"socios.data","r+b");
-  abrirArchivo(&act,"socios_act.data","wb");
-  abrirArchivo(&idx,"socios.idx","rb");
+  crearIndice(&indiceNroSocio,sizeof(long int),compararRegistroIndiceSocios);
+  cargarIndice(&indiceNroSocio,"socios.idx");
 
-  ///Actualizamos el Archivo de Socios utilizando el Archivo Índice
+  puts("============================================== POST CARGA INDICE ==============================================");
 
-  ///Leemos el Archivo del Índice y movemos el cabezal con el
-  ///tamaño del socio multiplicando al número de registro, y
-  ///ese sería nuestro desplazamiento en socios.data
+  recorrerIndice(&indiceNroSocio,mostrarNroSocio,stdout);
 
-  fread(&dato,sizeof(tRegistroIndice),1,idx);
-  fseek(bin,sizeof(tSocio)*dato.nroReg,SEEK_SET);
+  puts("============================================== TODOS LOS SOCIOS ==============================================");
 
-  while(!feof(idx)){
+  ///Mostrar todos los Socios (Activos/Inactivos)
 
+  rewind(bin);
+
+  fread(&socio,sizeof(tSocio),1,bin);
+
+  while(!feof(bin)){
+    mostrarSocios(&socio,stdout);
     fread(&socio,sizeof(tSocio),1,bin);
-    fwrite(&socio,sizeof(tSocio),1,act);
-
-    ///Repetimos el proceso
-
-    fread(&dato,sizeof(tRegistroIndice),1,idx);
-    fseek(bin,sizeof(tSocio)*dato.nroReg,SEEK_SET);
   }
 
-  remove("socios.data");
-  rename("socios_act.data","socios.data");
-
+  vaciarIndice(&indiceNroSocio);
   fclose(bin);
-  fclose(idx);
-  fclose(act);
   return 0;
-
 }

@@ -1,9 +1,7 @@
 #include "lista.h"
-typedef int (*cmp)(const void*,const void*);
 void crearLista(tLista* pl){
   *pl = NULL;
 }
-
 int ponerAlComienzo(tLista* pl, const void* dato, size_t tam){
   tNodo* nue;
   nue = (tNodo*)malloc(sizeof(tNodo));
@@ -20,7 +18,6 @@ int ponerAlComienzo(tLista* pl, const void* dato, size_t tam){
   *pl = nue;
   return 1;
 }
-
 int sacarPrimeroLista(tLista* pl, void* dato, size_t tam){
   tNodo* aux = *pl;
   if(aux == NULL)
@@ -31,14 +28,12 @@ int sacarPrimeroLista(tLista* pl, void* dato, size_t tam){
   *pl = aux->sig;
   return 1;
 }
-
 int verPrimeroLista(const tLista* pl, void* dato, size_t tam){
   if(*pl == NULL)
     return 0;
   memcpy(dato,(*pl)->dato,minimo((*pl)->tam,tam));
   return 1;
 }
-
 int ponerAlFinal(tLista* pl, const void* dato, size_t tam){
   tNodo* nue;
   nue = (tNodo*)malloc(sizeof(tNodo));
@@ -60,7 +55,6 @@ int ponerAlFinal(tLista* pl, const void* dato, size_t tam){
   *pl = nue;
   return 1;
 }
-
 int sacarUltimoLista(tLista* pl, void* dato, size_t tam){
   if(*pl == NULL)
     return 0;
@@ -74,7 +68,6 @@ int sacarUltimoLista(tLista* pl, void* dato, size_t tam){
   *pl = NULL;
   return 1;
 }
-
 int verUltimoLista(const tLista* pl, void* dato, size_t tam){
   if(*pl == NULL)
     return 0;
@@ -85,11 +78,9 @@ int verUltimoLista(const tLista* pl, void* dato, size_t tam){
   memcpy(dato,(*pl)->dato,minimo((*pl)->tam,tam));
   return 1;
 }
-
 int listaVacia(const tLista* pl){
   return *pl == NULL;
 }
-
 int listaLlena(const tLista* pl , size_t tam){
   tNodo* nue;
   nue = (tNodo*)malloc(sizeof(tNodo));
@@ -98,7 +89,6 @@ int listaLlena(const tLista* pl , size_t tam){
   free(nue->dato);
   return nue == NULL || nue->dato == NULL;
 }
-
 void vaciarLista(tLista* pl){
   tNodo* aux = *pl;
   while(*pl){
@@ -108,7 +98,6 @@ void vaciarLista(tLista* pl){
     aux = *pl;
   }
 }
-
 int mostrarLista(const tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf){
   int cant = 0;
   while(*pl){
@@ -118,7 +107,6 @@ int mostrarLista(const tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf){
   }
   return cant;
 }
-
 int mostrarListaYVaciar(tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf){
   int cant = 0;
   tNodo* aux = *pl;
@@ -134,7 +122,6 @@ int mostrarListaYVaciar(tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf)
 
   return cant;
 }
-
 int mostrarListaAlReves(const tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf){
   int cant = 0;
   if(*pl){
@@ -144,7 +131,6 @@ int mostrarListaAlReves(const tLista* pl, void (*mostrar)(const void*,FILE*),FIL
   }
   return 0;
 }
-
 int mostrarListaAlRevesYVaciar(tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf){
   int cant = 0;
   if(*pl){
@@ -157,16 +143,15 @@ int mostrarListaAlRevesYVaciar(tLista* pl, void (*mostrar)(const void*,FILE*),FI
   }
   return 0;
 }
-
 int ponerEnOrden(tLista* pl,const void* dato, size_t tam,
-                 cmp comp,
+                 int(*cmp)(const void*,const void*),
                  int(*acumular)(void**,size_t*,const void*,size_t)){
   tNodo* nue;
 
-  while(*pl && comp((*pl)->dato,dato) < 0)
+  while(*pl && cmp((*pl)->dato,dato) < 0)
     pl = &(*pl)->sig;
 
-  if(*pl && comp((*pl)->dato,dato) == 0)
+  if(*pl && cmp((*pl)->dato,dato) == 0)
     return 2;
 
   nue = (tNodo*)malloc(sizeof(tNodo));
@@ -186,7 +171,6 @@ int ponerEnOrden(tLista* pl,const void* dato, size_t tam,
   *pl = nue;
   return 1;
 }
-
 void ordenar(tLista* pl, int(*cmp)(const void*,const void*)){
   tLista* ini = pl;
   tLista* q;
@@ -212,7 +196,6 @@ void ordenar(tLista* pl, int(*cmp)(const void*,const void*)){
       pl = &(*pl)->sig;
   }
 }
-
 tLista* buscarMenor(tLista* pl, int (*cmp)(const void*, const void*)){
   tLista* menor = pl;
 
@@ -247,13 +230,10 @@ void ordenarLista(tLista* pl, int (*cmp)(const void*, const void*)) {
     pl = &(*pl)->sig;
   }
 }
-
-tLista* buscarOcurrencia(const tLista* pl,const void* ocur,int(*cmp)(const void*,const void*)){
+tNodo* buscarOcurrencia(const tLista* pl,const void* ocur,int(*cmp)(const void*,const void*)){
   tLista* buscar = (tLista*)pl;
-  tLista* aux = (tLista*)pl;
+  tNodo* aux = NULL;
   int comp = -1;
-
-  pl = &(*pl)->sig;
 
   while(*pl && comp){
     comp = cmp((*pl)->dato,ocur);
@@ -261,18 +241,20 @@ tLista* buscarOcurrencia(const tLista* pl,const void* ocur,int(*cmp)(const void*
       buscar = (tLista*)pl;
     pl = &(*pl)->sig;
   }
-  return comp ? aux : buscar;
+  return comp ? aux : *buscar;
 }
-
 int agrupar(tLista* pl, int(*cmp)(const void*,const void*), int (*acum)(void*,const void*)){
   tLista* buscar;
+  tNodo* aux;
 
   if(*pl == NULL)
     return 0;
 
   while((*pl)->sig){
 
-    buscar = buscarOcurrencia(pl,(*pl)->dato,cmp);
+    aux = buscarOcurrencia(pl,(*pl)->dato,cmp);
+
+    buscar = &aux;
 
     if(buscar != pl){
       acum((*pl)->dato,(*buscar)->dato);
@@ -285,14 +267,16 @@ int agrupar(tLista* pl, int(*cmp)(const void*,const void*), int (*acum)(void*,co
   }
   return 1;
 }
-
 int eliminarPorClave(tLista* pl,const void* dato,int(*cmp)(const void*,const void*)){
   tNodo* aux = *pl;
+  int comp = -1;
+
   if(*pl == NULL)
     return 0;
 
-  while(*pl){
-    if(cmp((*pl)->dato,dato) == 0){
+  while(*pl && comp){
+    comp = cmp((*pl)->dato,dato);
+    if(comp == 0){
       aux = *pl;
       *pl = (*pl)->sig;
       free(aux->dato);
@@ -301,16 +285,15 @@ int eliminarPorClave(tLista* pl,const void* dato,int(*cmp)(const void*,const voi
     else
       pl = &(*pl)->sig;
   }
-  return 1;
-}
 
+  return comp == 0;
+}
 void reduceList(tLista* pl,void* acu, void (*acum)(void*,const void*)){
   while(*pl){
     acum(acu,(*pl)->dato);
     pl = &(*pl)->sig;
   }
 }
-
 int filterList(tLista* pl,void* comp, int (*cmp)(const void*,const void*)){
   tNodo* aux;
   int contElim = 0;

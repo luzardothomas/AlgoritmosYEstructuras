@@ -23,6 +23,7 @@ int verPrimeroLista(const tLista* pl, void* dato, size_t tam);
 int ponerAlFinal(tLista* pl, const void* dato, size_t tam);
 int sacarUltimoLista(tLista* pl, void* dato, size_t tam);
 int verUltimoLista(const tLista* pl, void* dato, size_t tam);
+
 int mostrarLista(const tLista* pl, void (*mostrar) (const void*,FILE*),FILE* pf);
 int mostrarListaAlReves(const tLista* pl, void (*mostrar)(const void*, FILE*), FILE* pf);
 int mostrarListaYVaciar(tLista* pl, void (*mostrar)(const void*,FILE*),FILE* pf);
@@ -38,7 +39,7 @@ void ordenarLista(tLista* pl, int(*cmp)(const void*,const void*));
 void reduceList(tLista* pl,void* acu, void (*acum)(void*,const void*));
 int filterList(tLista* pl,void* comp, int (*cmp)(const void*,const void*));
 
-tLista* buscarOcurrencia(const tLista* pl,const void* ocur,int(*cmp)(const void*,const void*));
+tNodo* buscarOcurrencia(const tLista* pl,const void* ocur,int(*cmp)(const void*,const void*));
 int agrupar(tLista* pl, int(*cmp)(const void*,const void*), int (*acum)(void*,const void*));
 int eliminarPorClave(tLista* pl,const void* dato,int(*cmp)(const void*,const void*));
 
