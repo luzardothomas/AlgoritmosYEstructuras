@@ -491,7 +491,6 @@ int darDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
   struct tm tmFecha1 = {0};
   struct tm tmFecha2 = {0};
 
-
   do{
       printf("Escriba el Nro de Socio:");
       scanf("%ld",&teclado.nro);
@@ -531,15 +530,15 @@ int darDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
 
     }while(!(validarFecha(teclado.baja) && difftime(tiempo2,tiempo1) >= 0));
 
-
     eliminarIndice(pin,pin->regInd,nroReg);
-
-    fflush(pf);
 
     socio.estado = 'I';
     socio.baja = teclado.baja;
 
-    fseek(pf,-1*sizeof(tSocio),SEEK_CUR);
+    fseek(pf,-sizeof(tSocio),SEEK_CUR);
+
+    fflush(pf);
+
     fwrite(&socio,sizeof(tSocio),1,pf);
 
     printf("\nLa operacion fue exitosa\n");
@@ -574,6 +573,7 @@ int modificarAyN(tIndice* pin,unsigned* nroReg,FILE* pf){
     }while(!(teclado.nro >= 1 && teclado.nro <= 10000000));
 
   rewind(pf);
+  fflush(pf);
 
   fread(&socio,sizeof(tSocio),1,pf);
 
@@ -592,10 +592,7 @@ int modificarAyN(tIndice* pin,unsigned* nroReg,FILE* pf){
 
       return ENCONTRADO;
     }
-
-    fflush(pf);
     fread(&socio,sizeof(tSocio),1,pf);
-
   }
 
   printf("\nNo se pudo encontrar el socio solicitado\n");
