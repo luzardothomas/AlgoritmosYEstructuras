@@ -41,7 +41,7 @@ typedef int (*fOpcion)(tIndice*,unsigned*,FILE*);
 
 void limpiarPantalla();
 void limpiarBuffer();
-int miStrcmpi(const char * cad1, const char * cad2);
+int miStrcmpi(const char* cad1, const char* cad2);
 int contarNodos(tNodo* nodo);
 
 ///Funciones de Archivos
