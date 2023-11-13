@@ -6,7 +6,7 @@
 *   manualmente los Socios para darlos de Alta
 */
 
-#define LLENAR_DATOS
+//#define LLENAR_DATOS
 
 #ifdef _WIN32
   #include<windows.h>
@@ -648,36 +648,6 @@ int modificarAyN(tIndice* pin,unsigned* nroReg,FILE* pf){
 
   return NO_ENCONTRADO;
 }
-/** Misma función de arriba sin tener en cuenta los Inactivos
-int modificarAyN(tIndice* pin,unsigned* nroReg,FILE* pf){
-  tSocio socio;
-  tNodo* buscar = NULL;
-
-  do{
-      //printf("Escriba el Nro de Socio:");
-      //scanf("%ld",&socio.nro);
-      socio.nro = 14;
-    }while(!(socio.nro >= 1 && socio.nro <= 10000000));
-
-  rewind(pf);
-
-  if((buscar = buscarOcurrencia(&pin->lista,&socio.nro,pin->comp))){
-    //printf("Escriba el apellido y nombre:");
-    //limpiarBuffer();
-    //scanf("%60[^\n]",copia);
-    memcpy(nroReg,(char*)buscar->dato + pin->tamClave,sizeof(unsigned));
-    fseek(pf,sizeof(tSocio)*(*nroReg),SEEK_SET);
-    fread(&socio,sizeof(tSocio),1,pf);
-    strcpy(socio.nya,"Ritchie, Lionel");
-    mostrarSocios(&socio,stdout);
-    fflush(pf);
-    fseek(pf,sizeof(tSocio)*(*nroReg),SEEK_SET);
-    fwrite(&socio,sizeof(tSocio),1,pf);
-    return ENCONTRADO;
-  }
-  return NO_ENCONTRADO;
-}
-*/
 int listarSociosDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
   tSocio socio;
 
