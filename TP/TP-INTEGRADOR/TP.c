@@ -502,9 +502,6 @@ int darDeAlta(tIndice* pin,unsigned* nroReg,FILE* pf){
   fflush(pf);
   fwrite(&teclado,sizeof(tSocio),1,pf);
 
-  if(A_MAYUS(teclado.estado) == 'I')
-    return INACTIVO;
-
   memcpy(pin->regInd,&teclado.nro,pin->tamClave);
   memcpy((char*)pin->regInd + pin->tamClave,nroReg,sizeof(unsigned));
 
