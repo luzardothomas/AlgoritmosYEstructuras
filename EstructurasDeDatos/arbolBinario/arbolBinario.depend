@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1699983447 source:/home/thomas/Desktop/AlgoritmosYEstructuras/EstructurasDeDatos/arbolBinario/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../bibliotecaEstructuras/arbol.h"
+
+1699983054 /home/thomas/Desktop/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/arbol.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1699982968 source:/home/thomas/Desktop/AlgoritmosYEstructuras/EstructurasDeDatos/bibliotecaEstructuras/arbol.c
+	"arbol.h"
+
