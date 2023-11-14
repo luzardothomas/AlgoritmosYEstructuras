@@ -332,26 +332,11 @@ tSocio completarDatos(tIndice *pin){
                      &socio.ultimaPaga.anio);
   }while(!resultado ||!validarFecha(socio.ultimaPaga));
 
-  limpiarBuffer();
+  socio.estado = 'A';
+  socio.baja.dia = 0;
+  socio.baja.mes = 0;
+  socio.baja.anio = 0;
 
-  do{
-    printf("Estado ('A' (Activo)/'I' (Inactivo)):");
-    resultado = scanf("%c",&socio.estado);
-  }while(!resultado ||!(A_MAYUS(socio.estado) == 'A' || A_MAYUS(socio.estado) == 'I'));
-
-  if(A_MAYUS(socio.estado) == 'I'){
-    do{
-      printf("Fecha de baja (dd/mm/aaaa): ");
-      resultado = scanf("%d/%d/%d",&socio.baja.dia,
-                       &socio.baja.mes,
-                       &socio.baja.anio);
-    }while(!resultado ||!validarFecha(socio.baja));
-  }
-  else{
-    socio.baja.dia = 0;
-    socio.baja.mes = 0;
-    socio.baja.anio = 0;
-  }
   return socio;
 }
 int validarLoteDeDatosDelClub(tSocio* socio){
