@@ -233,7 +233,7 @@ char completarMenu(){
   return op;
 }
 ///Funciones de Socios
-tSocio completarDatos(tIndice *pin){
+tSocio completarDatos(){
   tSocio socio;
   int resultado;
   unsigned nroReg;
@@ -249,8 +249,8 @@ tSocio completarDatos(tIndice *pin){
   socio.afiliacion.mes = 1;
   socio.afiliacion.anio = 2023;
   strcpy(socio.categoria,"ADULTO");
-  socio.ultimaPaga.dia = 28;
-  socio.ultimaPaga.mes = 11;
+  socio.ultimaPaga.dia = 22;
+  socio.ultimaPaga.mes = 1;
   socio.ultimaPaga.anio = 2023;
   socio.estado = 'A';
   if(socio.estado == 'A'){
@@ -261,20 +261,6 @@ tSocio completarDatos(tIndice *pin){
   return socio;
 
   #endif // LLENAR_DATOS
-
-
-  do{
-    printf("Numero de socio: ");
-    resultado = scanf("%ld",&socio.nro);
-  }while(!resultado || !(socio.nro >= 1 && socio.nro <= 10000000));
-
-  limpiarBuffer();
-
-  if(buscarIndice(pin,&socio.nro,&nroReg)){
-    printf("El socio ingresado se encuentra activo en el registro nro: %u\n",nroReg);
-    socio.nro = 0;
-    return socio;
-  }
 
   do{
     printf("Dni: ");
@@ -323,16 +309,8 @@ tSocio completarDatos(tIndice *pin){
        (miStrcmpi(socio.categoria,"HONORARIO") == 0) ||
        (miStrcmpi(socio.categoria,"JUBILADO") == 0)));
 
-  limpiarBuffer();
-
-  do{
-    printf("Fecha de ultima cuota pagada (dd/mm/aaaa): ");
-    resultado = scanf("%d/%d/%d",&socio.ultimaPaga.dia,
-                     &socio.ultimaPaga.mes,
-                     &socio.ultimaPaga.anio);
-  }while(!resultado ||!validarFecha(socio.ultimaPaga));
-
   socio.estado = 'A';
+  socio.ultimaPaga = socio.afiliacion;
   socio.baja.dia = 0;
   socio.baja.mes = 0;
   socio.baja.anio = 0;
@@ -465,16 +443,20 @@ int insertarSocioAtrasado(tLista* pl,const void* dato, size_t tam, cmp comp){
 int darDeAlta(tIndice* pin,unsigned* nroReg,FILE* pf){
   tSocio socio;
   tSocio teclado;
+  int resultado;
 
-  teclado = completarDatos(pin);
+  do{
+    printf("Numero de socio: ");
+    resultado = scanf("%ld",&socio.nro);
+  }while(!resultado || !(socio.nro >= 1 && socio.nro <= 10000000));
 
-  #ifdef LLENAR_DATOS
-  printf("\nIngrese el numero de socio:");
-  scanf("%ld",&teclado.nro);
-  #endif // LLENAR_DATOS
-
-  if(teclado.nro == 0)
+  if(buscarIndice(pin,&socio.nro,nroReg)){
+    printf("El socio %d ingresado se encuentra Activo en el registro nro: %u\n",socio.nro,*nroReg);
     return ENCONTRADO;
+  }
+
+  teclado = completarDatos();
+  teclado.nro = socio.nro;
 
   rewind(pf);
 
@@ -482,22 +464,23 @@ int darDeAlta(tIndice* pin,unsigned* nroReg,FILE* pf){
 
   while(!feof(pf)){
     if(teclado.nro == socio.nro){
-      if(A_MAYUS(socio.estado) == 'A')
-      printf("\nEl numero de socio %ld Numero de Registro %d solicitado se encuentra en estado activo\n",socio.nro,*nroReg);
-      else{
-        socio.estado = 'A';
-        socio.baja.dia = 0;
-        socio.baja.mes = 0;
-        socio.baja.anio = 0;
-        fflush(pf);
-        fseek(pf,(long)(-1*sizeof(tSocio)),SEEK_CUR);
-        fwrite(&socio,sizeof(tSocio),1,pf);
-      }
+      printf("\nEl numero de socio %ld solicitado se encuentra en estado Inactivo\n",socio.nro);
+      socio.estado = 'A';
+      socio.baja.dia = 0;
+      socio.baja.mes = 0;
+      socio.baja.anio = 0;
+      fflush(pf);
+      fseek(pf,(long)(-1*sizeof(tSocio)),SEEK_CUR);
+      fwrite(&socio,sizeof(tSocio),1,pf);
       return ENCONTRADO;
     }
+
     fflush(pf);
     fread(&socio,sizeof(tSocio),1,pf);
+
   }
+
+
 
   fflush(pf);
   fwrite(&teclado,sizeof(tSocio),1,pf);
