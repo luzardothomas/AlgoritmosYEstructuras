@@ -5,7 +5,7 @@
 	<string.h>
 	"TP.h"
 
-1699743746 
+1700347095 
 
 1698431273 c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\tp.h
 	<stdio.h>
@@ -14,7 +14,7 @@
 	"lista/lista.h"
 	"indice/indice.h"
 
-1699743746 dice.h"
+1699985722 dice.h"
 
 1698429183 source:c:\users\leand\documents\unlam\a—o 4\cuatrimestre 2\algoritmos y estructura de datos\tp\tp-integrador\tp.c
 	"TP.h"
@@ -62,7 +62,7 @@
 1698450335 source:/home/thomas/Desktop/TP/TP-INTEGRADOR/TP.c
 	"TP.h"
 
-1699708860 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/main.c
+1700351019 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -72,8 +72,28 @@
 	<string.h>
 	"TP.h"
 	<time.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TP.h"
+	<time.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TP.h"
+	<time.h>
 
-1699711502 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.h
+1699985722 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lista/lista.h"
+	"indice/indice.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lista/lista.h"
+	"indice/indice.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -85,28 +105,48 @@
 	"lista/lista.h"
 	"indice/indice.h"
 
-1699669643 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.h
+1699985722 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.h
 	"../TP.h"
 	"../lista/lista.h"
+	"../lista/lista.h"
+	"../lista/lista.h"
 
-1699743746 lista.h"
+1699985722 lista.h"
 
-1699708697 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.c
+1700350582 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.c
 	"TP.h"
 	<windows.h>
 	"TP.h"
 	<string.h>
 	<time.h>
 	<windows.h>
+	"TP.h"
+	<string.h>
+	<time.h>
+	<windows.h>
+	"TP.h"
+	<string.h>
+	<time.h>
+	<windows.h>
 
-1699743746 >
+1700347920 >
 
-1699708188 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.c
+1700351211 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.c
 	"indice.h"
 	"indice.h"
 	"../TP.h"
+	"indice.h"
+	"../TP.h"
+	"indice.h"
+	"../TP.h"
 
-1699574785 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.h
+1699985722 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -114,7 +154,9 @@
 	<stdlib.h>
 	<string.h>
 
-1699669676 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.c
+1699985722 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.c
+	"lista.h"
+	"lista.h"
 	"lista.h"
 	"lista.h"
 
@@ -253,36 +295,71 @@
 	<time.h>
 	<windows.h>
 
-1699887833 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.c
+1699985722 source:c:\users\pablo\downloads\algoritmosyestructuras-main (40)\algoritmosyestructuras-main\tp\tp-integrador\indice\indice.c
 	"indice.h"
 	"../TP.h"
 
-1699888044 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.h
+1699985722 c:\users\pablo\downloads\algoritmosyestructuras-main (40)\algoritmosyestructuras-main\tp\tp-integrador\indice\indice.h
+	"../lista/lista.h"
+
+1699985722 c:\users\pablo\downloads\algoritmosyestructuras-main (40)\algoritmosyestructuras-main\tp\tp-integrador\lista\lista.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1699985722 c:\users\pablo\downloads\algoritmosyestructuras-main (40)\algoritmosyestructuras-main\tp\tp-integrador\tp.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"lista/lista.h"
 	"indice/indice.h"
 
-1699743746 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.h
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1699743746 /home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/indice/indice.h
-	"../lista/lista.h"
-
-1699743746 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/lista/lista.c
+1699985722 source:c:\users\pablo\downloads\algoritmosyestructuras-main (40)\algoritmosyestructuras-main\tp\tp-integrador\lista\lista.c
 	"lista.h"
 
-1699889409 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/main.c
+1700347095 source:c:\users\pablo\downloads\algoritmosyestructuras-main (40)\algoritmosyestructuras-main\tp\tp-integrador\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"TP.h"
 	<time.h>
 
-1699889828 source:/home/thomas/Desktop/AlgoritmosYEstructuras/TP/TP-INTEGRADOR/TP.c
+1700347920 source:c:\users\pablo\downloads\algoritmosyestructuras-main (40)\algoritmosyestructuras-main\tp\tp-integrador\tp.c
+	"TP.h"
+	<string.h>
+	<time.h>
+	<windows.h>
+
+1700352326 source:c:\users\pablo\desktop\algoritmosyestructuras-main (4)\algoritmosyestructuras-main\39208705_pascual_pablo_ezequiel\tp\tp-integrador\indice\indice.c
+	"indice.h"
+	"../TP.h"
+
+1700352326 c:\users\pablo\desktop\algoritmosyestructuras-main (4)\algoritmosyestructuras-main\39208705_pascual_pablo_ezequiel\tp\tp-integrador\indice\indice.h
+	"../lista/lista.h"
+
+1700352326 c:\users\pablo\desktop\algoritmosyestructuras-main (4)\algoritmosyestructuras-main\39208705_pascual_pablo_ezequiel\tp\tp-integrador\lista\lista.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1700352326 c:\users\pablo\desktop\algoritmosyestructuras-main (4)\algoritmosyestructuras-main\39208705_pascual_pablo_ezequiel\tp\tp-integrador\tp.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"lista/lista.h"
+	"indice/indice.h"
+
+1700352326 source:c:\users\pablo\desktop\algoritmosyestructuras-main (4)\algoritmosyestructuras-main\39208705_pascual_pablo_ezequiel\tp\tp-integrador\lista\lista.c
+	"lista.h"
+
+1700352326 source:c:\users\pablo\desktop\algoritmosyestructuras-main (4)\algoritmosyestructuras-main\39208705_pascual_pablo_ezequiel\tp\tp-integrador\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"TP.h"
+	<time.h>
+
+1700352326 source:c:\users\pablo\desktop\algoritmosyestructuras-main (4)\algoritmosyestructuras-main\39208705_pascual_pablo_ezequiel\tp\tp-integrador\tp.c
 	"TP.h"
 	<string.h>
 	<time.h>

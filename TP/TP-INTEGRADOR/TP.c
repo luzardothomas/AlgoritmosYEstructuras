@@ -236,9 +236,8 @@ char completarMenu(){
 tSocio completarDatos(){
   tSocio socio;
   int resultado;
-  unsigned nroReg;
-  #ifdef LLENAR_DATOS
 
+  #ifdef LLENAR_DATOS
   strcpy(socio.nya,"Mercury, Freddie \0");
   socio.dni = 18951723;
   socio.nacimiento.dia = 1;
@@ -249,7 +248,7 @@ tSocio completarDatos(){
   socio.afiliacion.mes = 1;
   socio.afiliacion.anio = 2023;
   strcpy(socio.categoria,"ADULTO");
-  socio.ultimaPaga.dia = 22;
+  socio.ultimaPaga.dia = 28;
   socio.ultimaPaga.mes = 1;
   socio.ultimaPaga.anio = 2023;
   socio.estado = 'A';
@@ -303,11 +302,11 @@ tSocio completarDatos(){
     printf("Categoria ('MENOR'/'CADETE'/'ADULTO'/'VITALICIO'/'HONORARIO'/'JUBILADO'):");
     resultado = scanf("%10[^\n]",socio.categoria);
   }while(!resultado ||!((miStrcmpi(socio.categoria,"MENOR") == 0)  ||
-       (miStrcmpi(socio.categoria,"CADETE") == 0)    ||
-       (miStrcmpi(socio.categoria,"ADULTO") == 0)    ||
-       (miStrcmpi(socio.categoria,"VITALICIO") == 0) ||
-       (miStrcmpi(socio.categoria,"HONORARIO") == 0) ||
-       (miStrcmpi(socio.categoria,"JUBILADO") == 0)));
+        (miStrcmpi(socio.categoria,"CADETE") == 0)    ||
+        (miStrcmpi(socio.categoria,"ADULTO") == 0)    ||
+        (miStrcmpi(socio.categoria,"VITALICIO") == 0) ||
+        (miStrcmpi(socio.categoria,"HONORARIO") == 0) ||
+        (miStrcmpi(socio.categoria,"JUBILADO") == 0)));
 
   socio.estado = 'A';
   socio.ultimaPaga = socio.afiliacion;
@@ -451,7 +450,7 @@ int darDeAlta(tIndice* pin,unsigned* nroReg,FILE* pf){
   }while(!resultado || !(socio.nro >= 1 && socio.nro <= 10000000));
 
   if(buscarIndice(pin,&socio.nro,nroReg)){
-    printf("El socio %d ingresado se encuentra Activo en el registro nro: %u\n",socio.nro,*nroReg);
+    printf("El socio %ld ingresado se encuentra Activo en el registro nro: %u\n",socio.nro,*nroReg);
     return ENCONTRADO;
   }
 
@@ -479,7 +478,6 @@ int darDeAlta(tIndice* pin,unsigned* nroReg,FILE* pf){
     fread(&socio,sizeof(tSocio),1,pf);
 
   }
-
 
 
   fflush(pf);
@@ -516,9 +514,8 @@ int darDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
 
     fflush(pf);
 
+    fseek(pf,(long)(sizeof(tSocio)*(*nroReg)),SEEK_SET);
     fread(&socio,sizeof(tSocio),1,pf);
-    while(socio.nro != teclado.nro)
-      fread(&socio,sizeof(tSocio),1,pf);
 
     tmFecha1.tm_year = socio.afiliacion.anio - 1900;
     tmFecha1.tm_mon = socio.afiliacion.mes - 1;
@@ -560,53 +557,34 @@ int darDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
     return ENCONTRADO;
   }
 
-  fread(&socio,sizeof(tSocio),1,pf);
-
-  while(!feof(pf)){
-
-    if(teclado.nro == socio.nro){
-      printf("\nEl socio %ld ya estaba dado de baja\n",socio.nro);
-      return INACTIVO;
-    }
-
-    fread(&socio,sizeof(tSocio),1,pf);
-  }
-
-  printf("\nEl Socio %ld nunca existio\n",teclado.nro);
-
-  return NO_EXISTE;
+  printf("\nEl Socio %ld nunca existio o esta dado de baja\n",teclado.nro);
+  return NO_ENCONTRADO;
 }
 ///Teniendo en cuenta los Inactivos
 int modificarAyN(tIndice* pin,unsigned* nroReg,FILE* pf){
   tSocio socio;
-  tSocio teclado;
 
   do{
       printf("Escriba el Nro de Socio:");
-      scanf("%ld",&teclado.nro);
-    }while(!(teclado.nro >= 1 && teclado.nro <= 10000000));
+      scanf("%ld",&socio.nro);
+    }while(!(socio.nro >= 1 && socio.nro <= 10000000));
 
-  rewind(pf);
-  fflush(pf);
+  if(buscarIndice(pin,&socio.nro,nroReg))
+  {
 
-  fread(&socio,sizeof(tSocio),1,pf);
-
-  while(!feof(pf)){
-    if(teclado.nro == socio.nro){
-
-      printf("Escriba el apellido y nombre:");
-      limpiarBuffer();
-      scanf("%60[^\n]",socio.nya);
-
-      fseek(pf,(long)(-sizeof(tSocio)),SEEK_CUR);
-      fflush(pf);
-      fwrite(&socio,sizeof(tSocio),1,pf);
-
-      printf("\nLa modificacion del apellido y nombre fue exitosa\n");
-
-      return ENCONTRADO;
-    }
+    fseek(pf,sizeof(tSocio)*(*nroReg),SEEK_SET);
     fread(&socio,sizeof(tSocio),1,pf);
+
+    printf("Escriba el apellido y nombre:");
+    limpiarBuffer();
+    scanf("%60[^\n]",socio.nya);
+
+    fseek(pf,(long)(-sizeof(tSocio)),SEEK_CUR);
+    fflush(pf);
+    fwrite(&socio,sizeof(tSocio),1,pf);
+
+    printf("\nLa modificacion del apellido y nombre fue exitosa\n");
+    return ENCONTRADO;
   }
 
   printf("\nNo se pudo encontrar el socio solicitado\n");
@@ -630,23 +608,21 @@ int listarSociosDeBaja(tIndice* pin,unsigned* nroReg,FILE* pf){
 
   return TODO_OK;
 }
-int verSociosActivos(tIndice* pin,unsigned* nroReg,FILE* pf){
+void mostrarSociosActivos(const void *a, unsigned nroReg, void *c){
   tSocio socio;
-
+  FILE *pf = (FILE *)c;
+  fflush(pf);
+  fseek(pf,(long)(sizeof(tSocio)*nroReg),SEEK_SET);
+  fread(&socio,sizeof(tSocio),1,pf);
+  mostrarSocios(&socio,stdout);
+}
+int verSociosActivos(tIndice* pin,unsigned* nroReg,FILE* pf){
   if(!pin->lista)
     return INDICE_VACIO;
 
   rewind(pf);
-
   printf("\n============================ SOCIOS ACTIVOS ============================\n");
-
-  fread(&socio,sizeof(tSocio),1,pf);
-
-  while(!feof(pf)){
-    if(A_MAYUS(socio.estado) == 'A')
-      mostrarSocios(&socio,stdout);
-    fread(&socio,sizeof(tSocio),1,pf);
-  }
+  recorrerIndice(pin,mostrarSociosActivos,pf);
 
   return TODO_OK;
 }

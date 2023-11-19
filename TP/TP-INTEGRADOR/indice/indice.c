@@ -117,8 +117,7 @@ int recorrerIndice(const tIndice* pin, accion action,void* param){
     return INDICE_VACIO;
 
   while(actual){
-    memcpy(pin->regInd,param,pin->tamClave);
-    memcpy((char*)pin->regInd + pin->tamClave,&nroReg,sizeof(unsigned));
+    memcpy(&nroReg,(char*)actual->dato + pin->tamClave,sizeof(unsigned));
     action(actual->dato,nroReg,param);
     actual = actual->sig;
   }

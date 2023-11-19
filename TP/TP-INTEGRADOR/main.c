@@ -17,9 +17,8 @@ int compararRegistroIndiceSocios(const void* a, const void* b){
 }
 void mostrarNroSocio(const void * a, unsigned b, void * c){
   long int* nroSocio = (long int*)a;
-  unsigned* nroReg = (unsigned*)((char*)a + sizeof(long int));
 
-  printf("Numero de registro %d Numero de socio %ld\n",*nroReg,*nroSocio);
+  printf("Numero de registro %d Numero de socio %ld\n",b,*nroSocio);
 }
 int main(){
   int op;
@@ -66,12 +65,11 @@ int main(){
   ///Llenar el Índice
 
   while(!feof(bin)){
-
     if(A_MAYUS(socio.estado) == 'A')
-      insertarIndice(&indiceNroSocio,&socio.nro,iteraciones++);
+      insertarIndice(&indiceNroSocio,&socio.nro,iteraciones);
 
+    iteraciones++;
     fread(&socio,sizeof(tSocio),1,bin);
-
   }
 
   ///Volvemos al comienzo del Archivo
